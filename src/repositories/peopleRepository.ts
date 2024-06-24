@@ -13,4 +13,8 @@ function createPeople(name: string, cpfCnpj: string, dtNascimento: string, email
     });
 }
 
-export default { createPeople };
+function findPeople() {
+	return prisma.people.findMany();
+}
+
+export default { createPeople, findPeople };

@@ -8,7 +8,8 @@ async function createPeople(name: string, cpfCnpj: string, dtNascimento: string,
 }
 
 async function getPeople() {
-	return;
+	const result = await peopleRepository.findPeople();
+	return result;
 }
 
 export default { createPeople, getPeople };
