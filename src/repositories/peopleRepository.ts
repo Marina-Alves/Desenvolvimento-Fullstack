@@ -40,12 +40,20 @@ function findPeople() {
 	return prisma.people.findMany();
 }
 
-async function findPeopleById(peopleId: number) {
+function findPeopleById(peopleId: number) {
 	return prisma.people.findFirst({
 		where: {
 			id: peopleId
 		}
 	});
+}
+
+function getPeopleByCpfCnpj(cpfCnpj: string) {
+	return prisma.people.findUnique({
+		where: { 
+			cpf_cnpj: cpfCnpj
+		}
+	});
   }
 
-export default { createPeople, findPeople, findPeopleById };
+export default { createPeople, findPeople, findPeopleById, getPeopleByCpfCnpj };

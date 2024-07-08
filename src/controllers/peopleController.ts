@@ -8,7 +8,10 @@ async function createPeople(req: Request, res: Response) {
 		const result = 	await peopleService.createPeople(name, cpfCnpj, dtNascimento, email, pessoaJuridica, phones, addresses);
 		return res.status(httpStatus.CREATED).send(result);
 	} catch (error) {
-		return res.sendStatus(httpStatus.NOT_FOUND);
+		if (error.name === 'CannotCreatingPeople') {
+			return res.status(httpStatus.CONFLICT).send(error.message);
+		}
+		return res.sendStatus(httpStatus.BAD_REQUEST);
 	}
 }
 
