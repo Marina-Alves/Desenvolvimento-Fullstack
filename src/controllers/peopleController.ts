@@ -3,9 +3,9 @@ import peopleService from "../services/peopleService";
 import httpStatus from "http-status";
 
 async function createPeople(req: Request, res: Response) {
-	const { name, cpfCnpj, dtNascimento, email, pessoaJuridica } = req.body;
+	const { name, cpfCnpj, dtNascimento, email, pessoaJuridica, phones, addresses } = req.body;
 	try {
-		const result = 	await peopleService.createPeople(name, cpfCnpj, dtNascimento, email, pessoaJuridica);
+		const result = 	await peopleService.createPeople(name, cpfCnpj, dtNascimento, email, pessoaJuridica, phones, addresses);
 		return res.status(httpStatus.CREATED).send(result);
 	} catch (error) {
 		return res.sendStatus(httpStatus.NOT_FOUND);
