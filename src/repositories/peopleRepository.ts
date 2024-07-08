@@ -40,4 +40,12 @@ function findPeople() {
 	return prisma.people.findMany();
 }
 
-export default { createPeople, findPeople };
+async function findPeopleById(peopleId: number) {
+	return prisma.people.findFirst({
+		where: {
+			id: peopleId
+		}
+	});
+  }
+
+export default { createPeople, findPeople, findPeopleById };

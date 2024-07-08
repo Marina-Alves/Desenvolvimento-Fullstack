@@ -21,4 +21,17 @@ async function listPeople(req: Request, res: Response) {
 	}
 }
 
-export default { createPeople, listPeople };
+async function listPeopleById(req: Request, res: Response) {
+	try {
+		const { peopleId } = req.params;
+		const result = await peopleService.getPeopleById(Number(peopleId));
+		return res.status(httpStatus.OK).send(result);
+	} catch (error) {
+		if (error.name === 'NotFoundError') {
+			return res.status(httpStatus.NOT_FOUND).send(error.message);
+		}
+		return res.sendStatus(httpStatus.BAD_REQUEST);
+	}
+}
+
+export default { createPeople, listPeople, listPeopleById };

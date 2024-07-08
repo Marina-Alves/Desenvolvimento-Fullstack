@@ -7,5 +7,10 @@ export type PeopleType = {
 	pessoa_juridica: boolean,
 	ativo: boolean,
 	createdAt: Date,
-	updatedAt: Date,
+	updatedAt: Date
 }
+
+export type ApplicationError = {
+	name: string;
+	message: string;
+};
