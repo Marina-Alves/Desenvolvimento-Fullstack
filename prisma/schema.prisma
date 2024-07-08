@@ -22,5 +22,32 @@ model People {
 	pessoa_juridica		Boolean		@db.Boolean
 	ativo				Boolean		@db.Boolean
 	createdAt			DateTime	@default(now())
-  	updatedAt			DateTime	@updatedAt
+	updatedAt			DateTime	@updatedAt
+	Phone				Phone[]
+	Address				Address[]
+}
+
+model Phone {
+	id 				Int 			@id @default(autoincrement())
+	numero			String			@db.VarChar(20)
+	tipo_telefone	String			@db.VarChar(20)
+	peopleId		Int
+	people			People			@relation(fields: [peopleId], references: [id])
+	createdAt		DateTime		@default(now())
+	updatedAt		DateTime		@updatedAt
+}
+
+model Address {
+	id				Int			@id @default(autoincrement())
+	street			String		@db.VarChar(255)
+	number			String		@db.VarChar(255)
+	neighborhood	String		@db.VarChar(255)
+	cep				String		@db.VarChar(255)
+	city			String		@db.VarChar(255)
+	state			String		@db.VarChar(255)
+	addressDetail	String?		@db.VarChar(255)
+	peopleId		Int?
+	people			People?		@relation(fields: [peopleId], references: [id])
+	createdAt		DateTime	@default(now())
+	updatedAt		DateTime	@updatedAt
 }
