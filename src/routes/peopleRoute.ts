@@ -6,6 +6,7 @@ const peopleRoute = Router();
 peopleRoute
 	.get('/people', peopleController.listPeople)
 	.get('/people/:peopleId', peopleController.listPeopleById)
-	.post('/people', peopleController.createPeople);
+	.post('/people', peopleController.createPeople)
+	.put('/people/:peopleId', peopleController.changePeopleById);
 
 export default peopleRoute;

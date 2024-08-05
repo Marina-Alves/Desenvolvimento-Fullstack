@@ -37,13 +37,22 @@ function createPeople(name: string, cpfCnpj: string, dtNascimento: string, email
 }
 
 function findPeople() {
-	return prisma.people.findMany();
+	return prisma.people.findMany({
+		include: {
+			Phone: true,
+			Address: true
+		}
+	});
 }
 
 function findPeopleById(peopleId: number) {
 	return prisma.people.findFirst({
 		where: {
 			id: peopleId
+		},
+		include: {
+			Phone: true,
+			Address: true
 		}
 	});
 }
@@ -54,6 +63,12 @@ function getPeopleByCpfCnpj(cpfCnpj: string) {
 			cpf_cnpj: cpfCnpj
 		}
 	});
-  }
+}
+
+// function upsertPeople() {
+// 	return prisma.people.upsert({
+
+// 	});
+// }
 
 export default { createPeople, findPeople, findPeopleById, getPeopleByCpfCnpj };

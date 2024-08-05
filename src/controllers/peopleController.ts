@@ -37,4 +37,12 @@ async function listPeopleById(req: Request, res: Response) {
 	}
 }
 
-export default { createPeople, listPeople, listPeopleById };
+async function changePeopleById(req: Request, res: Response) {
+	try {
+		const { peopleId } = req.params;
+	} catch (error) {
+
+	}
+}
+
+export default { createPeople, listPeople, listPeopleById, changePeopleById };
