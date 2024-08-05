@@ -16,7 +16,7 @@ async function createPhone(req: Request, res: Response) {
 	}
 }
 
-async function listPhone(req: Request, res: Response) {
+async function listPhones(req: Request, res: Response) {
 	try {
 		const result = await phoneService.getPhones();
 		return res.status(httpStatus.OK).send(result);
@@ -70,4 +70,4 @@ async function deletePhoneById(req: Request, res: Response) {
 	}
 }
 
-export default { createPhone, listPhone, listPhoneById, updatePhoneById, deletePhoneById };
+export default { createPhone, listPhones, listPhoneById, updatePhoneById, deletePhoneById };

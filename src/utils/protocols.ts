@@ -19,6 +19,20 @@ export type PhoneType = {
 	updatedAt: Date
 }
 
+export type AddressType = {
+	id: number,
+	street: string, 
+	number: string, 
+	neighborhood: string, 
+	cep: string, 
+	city: string, 
+	state: string, 
+	addressDetail: string, 
+	peopleId: number,
+	createdAt: Date,
+	updatedAt: Date
+}
+
 export type ApplicationError = {
 	name: string;
 	message: string;

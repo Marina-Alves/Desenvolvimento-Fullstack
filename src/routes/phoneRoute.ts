@@ -4,7 +4,7 @@ import phoneController from "../controllers/phoneController";
 const phoneRoute = Router();
 
 phoneRoute
-	.get('/phone', phoneController.listPhone)
+	.get('/phone', phoneController.listPhones)
 	.get('/phone/:phoneId', phoneController.listPhoneById)
 	.post('/phone', phoneController.createPhone)
 	.put('/phone/:phoneId', phoneController.updatePhoneById)
