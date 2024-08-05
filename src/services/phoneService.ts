@@ -26,4 +26,21 @@ async function getPhoneById(phoneId: number) {
 	return result;
 }
 
-export default { createPhone, getPhones, getPhoneById };
+async function updatePhone(phoneId: number, numero: string, tipoTelefone: string, peopleId: number): Promise<PhoneType> {
+	await getPhoneById(phoneId);
+	await peopleService.getPeopleById(peopleId);
+
+	const result = await phoneRepository.update(phoneId, numero, tipoTelefone, peopleId);
+
+	return result;
+}
+
+async function deletePhoneById(phoneId: number) {
+	await getPhoneById(phoneId);
+
+	const result = await phoneRepository.deletePhoneById(phoneId);
+
+	return result;
+}
+
+export default { createPhone, getPhones, getPhoneById, updatePhone, deletePhoneById };

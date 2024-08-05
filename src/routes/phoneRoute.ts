@@ -7,7 +7,7 @@ phoneRoute
 	.get('/phone', phoneController.listPhone)
 	.get('/phone/:phoneId', phoneController.listPhoneById)
 	.post('/phone', phoneController.createPhone)
-	.put('/phone/:phoneId')
-	.delete('/phone/:phoneId');
+	.put('/phone/:phoneId', phoneController.updatePhoneById)
+	.delete('/phone/:phoneId', phoneController.deletePhoneById);
 
 export default phoneRoute;

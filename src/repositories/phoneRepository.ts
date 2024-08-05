@@ -1,10 +1,10 @@
 import prisma from "../config/database";
 
-function create(numero: string, tipoTelefone:string, peopleId: number) {
+function create(numero: string, tipo_telefone:string, peopleId: number) {
 	return prisma.phone.create({
 		data: {
 			numero,
-			tipo_telefone: tipoTelefone,
+			tipo_telefone,
 			peopleId, 
 		},
 	});
@@ -22,4 +22,25 @@ function findPhoneById(phoneId: number) {
 	});
 }
 
-export default { create, listOfPhones, findPhoneById };
+function update(phoneId: number, numero: string, tipo_telefone: string, peopleId: number) {
+	return prisma.phone.update({
+		where: {
+			id: phoneId,
+		},
+		data: {
+			numero,
+			tipo_telefone,
+			peopleId,
+		}
+	});
+}
+
+function deletePhoneById(phoneId: number) {
+	return prisma.phone.delete({
+		where: {
+			id: phoneId,
+		},
+	});
+}
+
+export default { create, listOfPhones, findPhoneById, update, deletePhoneById };
