@@ -7,7 +7,7 @@ addressRoute
     .get('/address', addressController.listAddresses)
     .get('/address/:addressId', addressController.listAddressById)
     .post('/address', addressController.createAddress)
-    .put('/address/:addressId')
-    .delete('/address/:addressId');
+    .put('/address/:addressId', addressController.updateAddressById)
+    .delete('/address/:addressId', addressController.deleteAddressById);
 
 export default addressRoute;

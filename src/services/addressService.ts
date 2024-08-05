@@ -1,4 +1,4 @@
-import { CannotCreatingAddress, notFoundError } from "../errors";
+import { CannotCreatingAddress, CannotUpdatingAddress, notFoundError } from "../errors";
 import addressRepository from "../repositories/addressRepository";
 import { AddressType } from "../utils/protocols";
 import peopleService from "./peopleService";
@@ -35,6 +35,11 @@ async function getAddressById(addressId: number) {
 async function updateAddress(addressId: number, street: string, number: string, neighborhood: string, cep: string, city: string, state: string, addressDetail: string, peopleId: number): Promise<AddressType> {
 	await getAddressById(addressId);
 	await peopleService.getPeopleById(peopleId);
+	const checkAddress = await addressRepository.checkAddressesEquals(street, number, neighborhood, cep, city, state, addressDetail);
+	
+	if (checkAddress) {
+		throw CannotUpdatingAddress();
+	}
 
 	const result = await addressRepository.update(addressId, street, number, neighborhood, cep, city, state, addressDetail, peopleId);
 
