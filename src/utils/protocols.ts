@@ -14,3 +14,7 @@ export type ApplicationError = {
 	name: string;
 	message: string;
 };
+
+export const WithoutPhoneId = 1;
+
+export const WithoutAddressId = 2;

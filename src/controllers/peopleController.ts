@@ -51,6 +51,12 @@ async function changePeopleById(req: Request, res: Response) {
 		if (error.name === 'CannotUpdatingPeople') {
 			return res.status(httpStatus.CONFLICT).send(error.message);
 		}
+		if (error.name === 'CannotUpdatingWithoutPhoneId') {
+			return res.status(httpStatus.NOT_FOUND).send(error.message);
+		}
+		if (error.name === 'CannotUpdatingWithoutAddressId') {
+			return res.status(httpStatus.NOT_FOUND).send(error.message);
+		}
 		return res.sendStatus(httpStatus.BAD_REQUEST);
 	}
 }

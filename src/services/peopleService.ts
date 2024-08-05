@@ -1,7 +1,7 @@
 import { Phone, Address } from "@prisma/client";
 import peopleRepository from "../repositories/peopleRepository";
-import { PeopleType } from "../utils/protocols";
-import { notFoundError, CannotCreatingPeople, CannotUpdatingPeople } from "../errors";
+import { PeopleType, WithoutAddressId, WithoutPhoneId } from "../utils/protocols";
+import { notFoundError, CannotCreatingPeople, CannotUpdatingPeople, CannotUpdatingWithout } from "../errors";
 
 async function createPeople(name: string, cpfCnpj: string, dtNascimento: string, email: string, pessoaJuridicacode: boolean, phones: Phone[], addresses: Address[]): Promise<PeopleType> {
 	const resultOfPeople = await peopleRepository.getPeopleByCpfCnpj(cpfCnpj);
@@ -37,6 +37,18 @@ async function updatePeople(peopleId: number, name: string, cpfCnpj: string, dtN
 		if (resultOfPeople) {
 			throw CannotUpdatingPeople();
 		}
+	}
+
+	if (phones) {
+		phones.map(phone => {
+			if (phone.id === undefined) throw CannotUpdatingWithout(WithoutPhoneId);
+		});
+	}
+
+	if (addresses) {
+		addresses.map(address => {
+			if (address.id === undefined) throw CannotUpdatingWithout(WithoutAddressId);
+		});
 	}
 
 	const result = await peopleRepository.updatePeople(peopleId, name, cpfCnpj, dtNascimento, email, pessoaJuridicacode, ativo, phones, addresses);
