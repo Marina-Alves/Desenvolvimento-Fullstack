@@ -40,8 +40,18 @@ async function listPeopleById(req: Request, res: Response) {
 async function changePeopleById(req: Request, res: Response) {
 	try {
 		const { peopleId } = req.params;
+		const { name, cpfCnpj, dtNascimento, email, pessoaJuridica, ativo, phones, addresses } = req.body;
+		
+		const result = await peopleService.updatePeople(Number(peopleId), name, cpfCnpj, dtNascimento, email, pessoaJuridica, ativo, phones, addresses);
+		return res.status(httpStatus.OK).send(result);
 	} catch (error) {
-
+		if (error.name === 'NotFoundError') {
+			return res.status(httpStatus.NOT_FOUND).send(error.message);
+		}
+		if (error.name === 'CannotUpdatingPeople') {
+			return res.status(httpStatus.CONFLICT).send(error.message);
+		}
+		return res.sendStatus(httpStatus.BAD_REQUEST);
 	}
 }
 

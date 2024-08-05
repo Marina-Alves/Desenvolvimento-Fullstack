@@ -65,10 +65,75 @@ function getPeopleByCpfCnpj(cpfCnpj: string) {
 	});
 }
 
-// function upsertPeople() {
-// 	return prisma.people.upsert({
+function updatePeople(peopleId: number, name: string, cpfCnpj: string, dtNascimento: string, email: string, pessoaJuridicacode: boolean, ativo: boolean, phones?: Phone[], addresses?: Address[]) {
+	let data: any = {
+		nome: name,
+		cpf_cnpj: cpfCnpj,
+		email,
+		pessoa_juridica: pessoaJuridicacode,
+		ativo
+	};
 
-// 	});
-// }
+	if (dtNascimento) {
+		data.dtnascimento = new Date(dtNascimento);
+	}
 
-export default { createPeople, findPeople, findPeopleById, getPeopleByCpfCnpj };
+	if (phones) {
+		data.Phone = {
+		  upsert: phones.map(phone => ({
+			where: {
+				id: phone.id
+			},
+			update: {
+			  numero: phone.numero,
+			  tipo_telefone: phone.tipo_telefone,
+			},
+			create: {
+			  numero: phone.numero,
+			  tipo_telefone: phone.tipo_telefone,
+			},
+		  })),
+		};
+	}
+
+	if (addresses) {
+		data.Address = {
+		  upsert: addresses.map(address => ({
+			where: { 
+				id: address.id
+			},
+			update: {
+			  street: address.street,
+			  number: address.number,
+			  neighborhood: address.neighborhood,
+			  cep: address.cep,
+			  city: address.city,
+			  state: address.state,
+			  addressDetail: address.addressDetail,
+			},
+			create: {
+			  street: address.street,
+			  number: address.number,
+			  neighborhood: address.neighborhood,
+			  cep: address.cep,
+			  city: address.city,
+			  state: address.state,
+			  addressDetail: address.addressDetail,
+			},
+		  })),
+		};
+	}
+
+	return prisma.people.update({
+		where: {
+			id: peopleId,
+		},
+		data,
+		include: {
+			Phone: true,
+			Address: true
+		}
+	});
+}
+
+export default { createPeople, findPeople, findPeopleById, getPeopleByCpfCnpj, updatePeople };
