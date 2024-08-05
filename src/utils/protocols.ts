@@ -10,6 +10,15 @@ export type PeopleType = {
 	updatedAt: Date
 }
 
+export type PhoneType = {
+	id: number,
+	numero: string,
+	tipo_telefone: string,
+	peopleId: number,
+	createdAt: Date,
+	updatedAt: Date
+}
+
 export type ApplicationError = {
 	name: string;
 	message: string;

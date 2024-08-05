@@ -14,7 +14,7 @@ async function createPeople(name: string, cpfCnpj: string, dtNascimento: string,
 	return result;
 }
 
-async function getPeople() {
+async function getPeoples() {
 	const result = await peopleRepository.findPeople();
 	return result;
 }
@@ -64,4 +64,4 @@ async function deletePeopleById(peopleId: number) {
 	return result;
 }
 
-export default { createPeople, getPeople, getPeopleById, updatePeople, deletePeopleById };
+export default { createPeople, getPeoples, getPeopleById, updatePeople, deletePeopleById };

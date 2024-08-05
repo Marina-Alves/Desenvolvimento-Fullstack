@@ -17,10 +17,10 @@ async function createPeople(req: Request, res: Response) {
 
 async function listPeople(req: Request, res: Response) {
 	try {
-		const result = await peopleService.getPeople();
+		const result = await peopleService.getPeoples();
 		return res.status(httpStatus.OK).send(result);
 	} catch (error) {
-		return res.sendStatus(httpStatus.NOT_FOUND);
+		return res.sendStatus(httpStatus.BAD_REQUEST);
 	}
 }
 
