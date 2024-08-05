@@ -136,4 +136,16 @@ function updatePeople(peopleId: number, name: string, cpfCnpj: string, dtNascime
 	});
 }
 
-export default { createPeople, findPeople, findPeopleById, getPeopleByCpfCnpj, updatePeople };
+function deletePeople(peopleId: number) {
+	return prisma.people.delete({
+		where: {
+			id: peopleId
+		},
+		include: {
+			Phone: true,
+			Address: true
+		}
+	})
+}
+
+export default { createPeople, findPeople, findPeopleById, getPeopleByCpfCnpj, updatePeople, deletePeople };

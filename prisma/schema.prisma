@@ -23,8 +23,8 @@ model People {
 	ativo				Boolean		@db.Boolean
 	createdAt			DateTime	@default(now())
 	updatedAt			DateTime	@updatedAt
-	Phone				Phone[]
-	Address				Address[]
+	Phone				Phone[]		
+	Address				Address[]	
 }
 
 model Phone {
@@ -32,7 +32,7 @@ model Phone {
 	numero			String			@db.VarChar(20)
 	tipo_telefone	String			@db.VarChar(20)
 	peopleId		Int
-	people			People			@relation(fields: [peopleId], references: [id])
+	people			People			@relation(fields: [peopleId], references: [id], onDelete: Cascade)
 	createdAt		DateTime		@default(now())
 	updatedAt		DateTime		@updatedAt
 }
@@ -47,7 +47,7 @@ model Address {
 	state			String		@db.VarChar(255)
 	addressDetail	String?		@db.VarChar(255)
 	peopleId		Int?
-	people			People?		@relation(fields: [peopleId], references: [id])
+	people			People?		@relation(fields: [peopleId], references: [id], onDelete: Cascade)
 	createdAt		DateTime	@default(now())
 	updatedAt		DateTime	@updatedAt
 }

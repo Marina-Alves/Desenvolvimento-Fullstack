@@ -44,4 +44,12 @@ async function updatePeople(peopleId: number, name: string, cpfCnpj: string, dtN
 	return result;
 }
 
-export default { createPeople, getPeople, getPeopleById, updatePeople };
+async function deletePeopleById(peopleId: number) {
+	await getPeopleById(peopleId);
+
+	const result = await peopleRepository.deletePeople(peopleId);
+
+	return result;
+}
+
+export default { createPeople, getPeople, getPeopleById, updatePeople, deletePeopleById };

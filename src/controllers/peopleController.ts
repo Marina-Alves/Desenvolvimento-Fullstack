@@ -55,4 +55,19 @@ async function changePeopleById(req: Request, res: Response) {
 	}
 }
 
-export default { createPeople, listPeople, listPeopleById, changePeopleById };
+async function deletePeopleById(req: Request, res: Response) {
+	try {
+		const { peopleId } = req.params;
+
+		await peopleService.deletePeopleById(Number(peopleId));
+
+		return res.sendStatus(httpStatus.NO_CONTENT);
+	} catch (error) {
+		if (error.name === 'NotFoundError') {
+			return res.status(httpStatus.NOT_FOUND).send(error.message);
+		}
+		return res.sendStatus(httpStatus.BAD_REQUEST);
+	}
+}
+
+export default { createPeople, listPeople, listPeopleById, changePeopleById, deletePeopleById };
