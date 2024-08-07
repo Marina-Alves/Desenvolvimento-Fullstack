@@ -18,7 +18,7 @@ Alunos:
 - Matheus Lima Oliveira e Souza
 ```
 
-## Como rodar o projeto
+## Como rodar o projeto Backend
 1. Clone o repositório
 2. Instale todas as dependências
 
@@ -36,4 +36,18 @@ npx prisma db push
    
 ```bash
 npx nodemon .\src\app.ts
+```
+
+## Como rodar o projeto FrontEnd
+1. Clone o repositório
+2. Instale todas as dependências
+
+```bash
+npm i
+```
+3. Configure o arquivo `.env` usando o arquivo de exemplo `.env.example`
+4. Subir o front-end com o comando:
+   
+```bash
+npm start
 ```
