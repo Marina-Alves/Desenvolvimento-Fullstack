@@ -1,417 +1,277 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { listPessoas, getPessoa, createPessoa, updatePessoa, deletePessoa as removePessoa, deleteTelefone } from "../services/api.js";
 import { FcAddRow, FcDeleteRow } from "react-icons/fc";
 import { AiOutlineEdit } from "react-icons/ai";
 import InputMask from "react-input-mask";
-import ReactLoading from 'react-loading'; 
+import ReactLoading from 'react-loading';
 import "react-datepicker/dist/react-datepicker.css";
 import DadosPessoaisForm from "../components/DadosPessoaisForm.js";
+import { listPessoas, getPessoa, createPessoa, updatePessoa, deletePessoa as removePessoa, deleteTelefone } from "../services/api.js";
+import {
+    UFS,
+    novoFormulario,
+    telefoneVazio,
+    telefonesParaExcluir,
+    montarPayloadCriacao,
+    montarPayloadAtualizacao,
+    formularioDaPessoa,
+} from "../services/pessoaMapper.js";
 
 export default function App() {
-    const [nome,setNome] = useState("");
-    const [cpf,setCPF] = useState("");
-    const [email,setEmail] = useState("");
-    const [cep,setCEP] = useState("");
-    const [logradouro,setLogradouro] = useState("");
-    const [complemento,setComplemento] = useState("");
-    const [setor,setSetor] = useState("");
-    const [cidade,setCidade] = useState("");
-    const [telefones,setTelefones] = useState([]);
-    const [selectedUF,setSelectedUF] = useState('AC');
-    const [houseNumber,setHouseNumber] = useState('');
-    const [dadosGravados,setDadosGravados] = useState([]);
-	const [startDate, setStartDate] = useState(new Date());
-    const [id,setId] = useState(0);
-	const [idAdress,setIdAdress] = useState(0);
-    const [change,setChange] = useState(false);
-    const [loading,setIsLoading] = useState(false);
-	const ufs = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
+    const [form, setForm] = useState(novoFormulario());
+    const [dadosGravados, setDadosGravados] = useState([]);
+    const [change, setChange] = useState(false);
+    const [loading, setIsLoading] = useState(false);
+    const ui = { setChange, setIsLoading };
+
+    const setField = (campo) => (e) => setForm((atual) => ({ ...atual, [campo]: e.target.value }));
+    const setTelefone = (indice, campo) => (e) => {
+        const valor = e.target.value;
+        setForm((atual) => ({
+            ...atual,
+            telefones: atual.telefones.map((t, i) => (i === indice ? { ...t, [campo]: valor } : t)),
+        }));
+    };
+    const adicionarTelefone = () => setForm((atual) => ({ ...atual, telefones: [...atual.telefones, telefoneVazio()] }));
+    const removerTelefone = () => setForm((atual) => (
+        atual.telefones.length > 5 ? { ...atual, telefones: atual.telefones.slice(0, -1) } : atual
+    ));
 
     useEffect(()=>{
-		const arr = [];
-		for(let i=0; i<5;i++){
-			arr.push({
-			id:0,
-			numero:"",
-			tipo_telefone:""
-			})
-		}
-		setId(0);
-		setNome('');
-		setCPF('');
-		setEmail('');
-		setCEP('');
-		setLogradouro('');
-		setComplemento('');
-		setSetor('');
-		setCidade('');
-		setChange(false);
-		setStartDate('');
-		setIdAdress(0);
-		setTelefones(arr);
-		setSelectedUF('AC');
-		setHouseNumber('');
+        setForm(novoFormulario());
+        setChange(false);
     },[change])
 
     useEffect(()=>{
-		async function getDados(){
-			setIsLoading(true);
-			const response = await listPessoas();
-			setIsLoading(false);
-			const arr = []
-			response.data.forEach(res => {
-				const obj = {
-				id: res.id,
-				nome: res.nome,
-				cpf: res.cpf_cnpj,
-				email: res.email,
-				telefones: res.Phone
-			}
-			arr.push(obj);
-			});
-			setDadosGravados(arr);
-		}
-		getDados();
+        async function getDados(){
+            setIsLoading(true);
+            const response = await listPessoas();
+            setIsLoading(false);
+            setDadosGravados(response.data.map((res) => ({
+                id: res.id,
+                nome: res.nome,
+                cpf: res.cpf_cnpj,
+                email: res.email,
+                telefones: res.Phone
+            })));
+        }
+        getDados();
     },[change])
 
     return (
-	<Container>
+    <Container>
         <>
-			<Titulo> <h1> Cadastro de pessoa </h1> </Titulo>
+            <Titulo> <h1> Cadastro de pessoa </h1> </Titulo>
         </>
         <ContainerTop>
-			<ContainerForm>
-				<form method="POST" onSubmit={(e)=>handleSubmit(e,nome,cpf,email,cep,logradouro,complemento,setor,cidade,telefones,selectedUF,startDate,houseNumber,id,idAdress,setChange,setIsLoading)}>
-					<DadosPessoaisForm nome={nome} setNome={setNome} cpf={cpf} setCPF={setCPF} email={email} setEmail={setEmail} startDate={startDate} setStartDate={setStartDate}/>
-					
-					<Subtitulo>
-						<h3> Endereço </h3>
-					</Subtitulo>
-					<Input>
-						<label htmlFor="cep" >CEP:</label>
-						<InputMask required mask="99999-999" name="cep" value={cep} onChange={(e)=>{setCEP(e.target.value)}} type="text"></InputMask>
-					</Input>
-					<Input>
-						<label htmlFor="logradouro" >Logradouro:</label>
-						<input required name="logradouro" value={logradouro} onChange={(e)=>{setLogradouro(e.target.value)}} type="text"></input>
-					</Input>
-					<Input>
-						<label htmlFor="houseNumber" >Numero:</label>
-						<input required name="houseNumber" value={houseNumber} onChange={(e)=>{setHouseNumber(e.target.value)}} type="text"></input>
-					</Input>
-					<Input>
-						<label htmlFor="complemento" >Complemento:</label>
-						<input required name="complemento" value={complemento} onChange={(e)=>{setComplemento(e.target.value)}} type="text"></input>
-					</Input>
-					<Input>
-						<label htmlFor="setor">Setor:</label>
-						<input required name="setor" value={setor} onChange={(e)=>{setSetor(e.target.value)}} type="text"></input>
-					</Input>
-					
-					<Input>
-						<label htmlFor="cidade">Cidade:</label>
-						<input required name="cidade" value={cidade} onChange={(e)=>{setCidade(e.target.value)}} type="text"></input>
-					</Input>
+            <ContainerForm>
+                <form method="POST" onSubmit={(e)=>handleSubmit(e,form,ui)}>
+                    <DadosPessoaisForm
+                        nome={form.nome} setNome={(v)=>setForm((a)=>({...a,nome:v}))}
+                        cpf={form.cpf} setCPF={(v)=>setForm((a)=>({...a,cpf:v}))}
+                        email={form.email} setEmail={(v)=>setForm((a)=>({...a,email:v}))}
+                        startDate={form.startDate} setStartDate={(v)=>setForm((a)=>({...a,startDate:v}))}
+                    />
 
-					<Input>
-						<label htmlFor="uf">UF:</label>
-						<select required value={selectedUF} onChange={(e)=>{setSelectedUF(e.target.value)}}>
-							{
-								ufs.map((uf) => {
-									return(
-										<option key = {uf} value={uf}>{uf}</option>
-									)
-								})
-							}
-						</select>
-					</Input>
-					
-					<ContainerBotoesForm>
-						<ButtonCadastro type="submit">Cadastrar</ButtonCadastro>
-						<ButtonDeletar disabled={id===0 ? true : false} onClick={(e)=>{deletePessoa(e,id,setChange,setIsLoading)}}>Deletar</ButtonDeletar>
-					</ContainerBotoesForm>
-				</form>
-			</ContainerForm>
-			<ContainerTelefones>
-				<table>
-				<thead>
-					<tr>
-					<th> Telefone </th>
-					<th> Descrição </th>
-					</tr>
-				</thead>
-				<tbody>
-					{
-						telefones.map((telefone,i)=>{
-						return (
-							<tr key={i}>
-							<td>
-								<InputMask
-								
-								mask="(99) 99999-9999"
-								name="numero" 
-								value={telefone.numero} 
-								onChange={(e)=>{
-									const arr = [...telefones];
-									arr[i].numero = e.target.value;
-									setTelefones(arr);
-								}} 
-								type="text"/>
-							</td>
-							<td>
-								<input 
-								name="tipo_telefone" 
-								value={telefone.tipo_telefone} 
-								onChange={(e)=>{
-									const arr = [...telefones];
-									arr[i].tipo_telefone = e.target.value;
-									setTelefones(arr);
-								}} 
-								type="text"/>
-							</td>
-							</tr>
-						)
-						})
-					}
-				</tbody>
-				</table>
-				<ContainerBotoesTelefones>
-				<button onClick={()=>{
-					
-					if(telefones.length > 5){
-					const arr = [...telefones];
-					arr.pop();
-					setTelefones(arr);
-					
-					}
-					
-				}
-				}>
-					<FcDeleteRow/>
-				</button>
-				<button onClick={()=>{
-					
-					const arr = [...telefones];
-					
-					arr.push({
-					id:0,
-					numero:"",
-					tipo_telefone:""
-					});
-					setTelefones(arr);
-				}}>
-					<FcAddRow/>
-				</button>
-				</ContainerBotoesTelefones>
-			</ContainerTelefones>
+                    <Subtitulo>
+                        <h3> Endereço </h3>
+                    </Subtitulo>
+                    <Input>
+                        <label htmlFor="cep" >CEP:</label>
+                        <InputMask required mask="99999-999" name="cep" value={form.cep} onChange={setField('cep')} type="text"></InputMask>
+                    </Input>
+                    <Input>
+                        <label htmlFor="logradouro" >Logradouro:</label>
+                        <input required name="logradouro" value={form.logradouro} onChange={setField('logradouro')} type="text"></input>
+                    </Input>
+                    <Input>
+                        <label htmlFor="houseNumber" >Numero:</label>
+                        <input required name="houseNumber" value={form.houseNumber} onChange={setField('houseNumber')} type="text"></input>
+                    </Input>
+                    <Input>
+                        <label htmlFor="complemento" >Complemento:</label>
+                        <input required name="complemento" value={form.complemento} onChange={setField('complemento')} type="text"></input>
+                    </Input>
+                    <Input>
+                        <label htmlFor="setor">Setor:</label>
+                        <input required name="setor" value={form.setor} onChange={setField('setor')} type="text"></input>
+                    </Input>
+
+                    <Input>
+                        <label htmlFor="cidade">Cidade:</label>
+                        <input required name="cidade" value={form.cidade} onChange={setField('cidade')} type="text"></input>
+                    </Input>
+
+                    <Input>
+                        <label htmlFor="uf">UF:</label>
+                        <select required value={form.selectedUF} onChange={setField('selectedUF')}>
+                            {
+                                UFS.map((uf) => {
+                                    return(
+                                        <option key = {uf} value={uf}>{uf}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </Input>
+
+                    <ContainerBotoesForm>
+                        <ButtonCadastro type="submit">Cadastrar</ButtonCadastro>
+                        <ButtonDeletar disabled={form.id===0 ? true : false} onClick={(e)=>{deletePessoa(e,form.id,ui)}}>Deletar</ButtonDeletar>
+                    </ContainerBotoesForm>
+                </form>
+            </ContainerForm>
+            <ContainerTelefones>
+                <table>
+                <thead>
+                    <tr>
+                    <th> Telefone </th>
+                    <th> Descrição </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        form.telefones.map((telefone,i)=>{
+                        return (
+                            <tr key={i}>
+                            <td>
+                                <InputMask
+                                mask="(99) 99999-9999"
+                                name="numero"
+                                value={telefone.numero}
+                                onChange={setTelefone(i,'numero')}
+                                type="text"/>
+                            </td>
+                            <td>
+                                <input
+                                name="tipo_telefone"
+                                value={telefone.tipo_telefone}
+                                onChange={setTelefone(i,'tipo_telefone')}
+                                type="text"/>
+                            </td>
+                            </tr>
+                        )
+                        })
+                    }
+                </tbody>
+                </table>
+                <ContainerBotoesTelefones>
+                <button onClick={removerTelefone}>
+                    <FcDeleteRow/>
+                </button>
+                <button onClick={adicionarTelefone}>
+                    <FcAddRow/>
+                </button>
+                </ContainerBotoesTelefones>
+            </ContainerTelefones>
         </ContainerTop>
         <ContainerBottom>
-		{
-            loading === true ? 
-			<ReactLoading type="spin" color="#274472" height={150} width={150} /> 
-			:
-			dadosGravados.length === 0 ?
+        {
+            loading === true ?
+            <ReactLoading type="spin" color="#274472" height={150} width={150} />
+            :
+            dadosGravados.length === 0 ?
                 <p>Não há dados cadastrados</p>
-			:
+            :
                 <table>
-				<thead>
+                <thead>
                     <tr>
-					<th> Nome </th>
-					<th> CPF </th>
-					<th> E-mail </th>
-					<th> Telefone/Descrição </th>
-					<th> <p></p> </th>
+                    <th> Nome </th>
+                    <th> CPF </th>
+                    <th> E-mail </th>
+                    <th> Telefone/Descrição </th>
+                    <th> <p></p> </th>
                     </tr>
-				</thead>
-				<tbody>
+                </thead>
+                <tbody>
                     {
-					dadosGravados.map((dadoGravado)=>{
+                    dadosGravados.map((dadoGravado)=>{
                         return (
-						<tr key={dadoGravado.id}>
+                        <tr key={dadoGravado.id}>
                             <td> {dadoGravado.nome} </td>
                             <td> {dadoGravado.cpf} </td>
                             <td> {dadoGravado.email} </td>
                             <td> {
                                 dadoGravado.telefones.map((telefone,i)=>{
-								return(
+                                return(
                                     <>
-									{telefone.numero + " / " +  telefone.tipo_telefone}
-									<br></br>
+                                    {telefone.numero + " / " +  telefone.tipo_telefone}
+                                    <br></br>
                                     </>
-								)
+                                )
                                 })
-							}
+                            }
                             </td>
                             <td>
-							<ContainerBotaoEditar>
-                                <button 
-								onClick={()=>{
-                                    handleClick(
-										dadoGravado.id,
-										setNome,
-										setCPF,
-										setEmail,
-										setCEP,
-										setLogradouro,
-										setComplemento,
-										setSetor,
-										setCidade,
-										setStartDate,
-										setTelefones,
-										setId,
-										setIdAdress,
-										setIsLoading,
-										setSelectedUF,
-										setHouseNumber
-                                    );
-								}}
-                                >
-								<AiOutlineEdit/>
+                            <ContainerBotaoEditar>
+                                <button onClick={()=>{ handleClick(dadoGravado.id,setForm,setIsLoading); }}>
+                                <AiOutlineEdit/>
                                 </button>
-							</ContainerBotaoEditar>
+                            </ContainerBotaoEditar>
                             </td>
-						</tr>
+                        </tr>
                         )
-					})
+                    })
                     }
-				</tbody>
+                </tbody>
                 </table>
-		}    
+        }
         </ContainerBottom>
-	</Container>
+    </Container>
     )
 }
 
-async function handleSubmit(e,nome,cpf,email,cep,logradouro,complemento,setor,cidade,telefones,selectedUF,startDate,houseNumber,id,idAdress,setChange,setIsLoading){
+async function handleSubmit(e,form,{setChange,setIsLoading}){
     e.preventDefault();
-    if(id === 0 ){
-		try{
-			setIsLoading(true);
-			const phones = telefones.filter((telefone)=>{
-			if(telefone.id === 0){
-				delete telefone.id;
-			}
-			return (telefone.numero !== '' && telefone.tipo_telefone !== '')
-			})
-			const addresses = [{
-				'cep':cep, 
-				'street':logradouro,
-				'number':houseNumber,
-				'neighborhood':setor,
-				'city':cidade,
-				'state':selectedUF,
-				'addressDetail':complemento,
-			}];
-			const cpfCnpj = cpf.replace(/[.-]/g, '');
-			let dtNascimento = new Date(startDate);
-			dtNascimento = dtNascimento.toISOString().split('T')[0];
-			await createPessoa({name:nome,cpfCnpj,email,dtNascimento,pessoaJuridica:false,phones,addresses});
-			setIsLoading(false);
-			setChange(true);
-		}
-		catch(e){
-			alert('CPF já cadastrado por favor informe um novo CPF');
-			setIsLoading(false);
-		}
+    const criando = form.id === 0;
+    try{
+        setIsLoading(true);
+        if(criando){
+            await createPessoa(montarPayloadCriacao(form));
+        }
+        else{
+            telefonesParaExcluir(form.telefones).map(async (telefone)=>{
+                await deleteTelefone(telefone.id);
+            })
+            await updatePessoa(form.id, montarPayloadAtualizacao(form));
+        }
+        setIsLoading(false);
+        setChange(true);
     }
-    else{
-		try{
-			setIsLoading(true);
-			telefones.map(async (telefone)=>{
-				if(telefone.id !== 0 && (telefone.numero === '' || telefone.tipo_telefone === '')){
-					await deleteTelefone(telefone.id);
-				}
-			})
-
-			let phones = telefones.filter((telefone)=>{
-				return (telefone.numero !== '' && telefone.tipo_telefone !== '')
-			})
-			const addresses = [{
-				'cep':cep, 
-				'street':logradouro,
-				'number':houseNumber,
-				'neighborhood':setor,
-				'city':cidade,
-				'state':selectedUF,
-				'addressDetail':complemento,
-			}];
-			if(phones.length === 0){
-				phones = null;
-			}
-			addresses[0].id = idAdress;
-			const cpfCnpj = cpf.replace(/[.-]/g, '');
-			let dtNascimento = new Date(startDate);
-			dtNascimento = dtNascimento.toISOString().split('T')[0];
-			await updatePessoa(id,{name:nome,cpfCnpj,email,dtNascimento,pessoaJuridica:false,phones,addresses});
-			setIsLoading(false);
-			setChange(true);
-		}
-		catch(e){
-			alert(e);
-		}
+    catch(e){
+        if(criando){
+            alert('CPF já cadastrado por favor informe um novo CPF');
+            setIsLoading(false);
+        }
+        else{
+            alert(e);
+        }
     }
-
 }
 
-async function deletePessoa(e,id,setChange,setIsLoading){
+async function deletePessoa(e,id,{setChange,setIsLoading}){
     e.preventDefault();
     if(id === 0 ){
-		alert("Não foi possivel deletar!");
+        alert("Não foi possivel deletar!");
     }
     else{
-		try{
-			setIsLoading(true);
-			await removePessoa(id);
-			setIsLoading(false);
-			setChange(true);
-		}
-		catch(e){
-			alert(e);
-		}
+        try{
+            setIsLoading(true);
+            await removePessoa(id);
+            setIsLoading(false);
+            setChange(true);
+        }
+        catch(e){
+            alert(e);
+        }
     }
-
 }
 
-async function handleClick(userId,setNome,setCPF,setEmail,setCEP,setLogradouro,setComplemento,setSetor,setCidade,setStartDate,setTelefones,setId,setIdAdress,setIsLoading,setSelectedUF,setHouseNumber){
+async function handleClick(userId,setForm,setIsLoading){
     setIsLoading(true);
     const response = await getPessoa(userId);
     setIsLoading(false);
-    const res = response.data;
-    const telefones = res.Phone;
-    const telefonesDescricao = [];
-    let tam = 5;
-    if(telefones.length > tam){
-		tam = telefones.length;
-    }
-
-    for(let i=0;i<tam;i++){
-	telefonesDescricao.push({
-        id: (telefones[i]?.id === undefined ? 0 : telefones[i].id),
-        idPessoa: (telefones[i]?.peopleId === undefined ? '' : telefones[i].peopleId),
-        numero: (telefones[i]?.numero === undefined ? '' : telefones[i].numero),
-        tipo_telefone: (telefones[i]?.tipo_telefone === undefined ? '' : telefones[i].tipo_telefone)
-	})
-    }
-    
-    setId(Number(res.id));
-    setNome(res.nome);
-    setCPF(res.cpf_cnpj);
-    setEmail(res.email);
-	let dtNascimento = new Date(res.dtnascimento);
-	dtNascimento = dtNascimento.toISOString().split('T')[0];
-
-    setStartDate(dtNascimento);
-
-	setIdAdress(res.Address[0]?.id);
-    setCEP(res.Address[0]?.cep);
-    setLogradouro(res.Address[0]?.street);
-    setComplemento(res.Address[0]?.addressDetail);
-    setSelectedUF(res.Address[0]?.state);
-    setSetor(res.Address[0]?.neighborhood);
-    setCidade(res.Address[0]?.city);
-    setTelefones(telefonesDescricao);
-    setHouseNumber(res.Address[0]?.number);
+    setForm(formularioDaPessoa(response.data));
 }
 
 const Container = styled.div`
