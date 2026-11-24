@@ -2,12 +2,13 @@ import addressController from "../controllers/addressController";
 import { Router } from "express";
 
 const addressRoute = Router();
+const ADDRESS_BY_ID_PATH = '/address/:addressId';
 
 addressRoute
     .get('/address', addressController.listAddresses)
-    .get('/address/:addressId', addressController.listAddressById)
+    .get(ADDRESS_BY_ID_PATH, addressController.listAddressById)
     .post('/address', addressController.createAddress)
-    .put('/address/:addressId', addressController.updateAddressById)
-    .delete('/address/:addressId', addressController.deleteAddressById);
+    .put(ADDRESS_BY_ID_PATH, addressController.updateAddressById)
+    .delete(ADDRESS_BY_ID_PATH, addressController.deleteAddressById);
 
 export default addressRoute;

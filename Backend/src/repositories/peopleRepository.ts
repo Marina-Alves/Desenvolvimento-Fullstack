@@ -2,7 +2,7 @@ import { Address, Phone } from "@prisma/client";
 import prisma from "../config/database";
 
 function createPeople(name: string, cpfCnpj: string, dtNascimento: string, email: string, pessoaJuridicacode: boolean, phones: Phone[], addresses: Address[]) {
-	let data: any = {
+	const data: any = {
 		nome: name,
 		cpf_cnpj: cpfCnpj,
 		dtnascimento: new Date(dtNascimento),
@@ -66,7 +66,7 @@ function getPeopleByCpfCnpj(cpfCnpj: string) {
 }
 
 function updatePeople(peopleId: number, name: string, cpfCnpj: string, dtNascimento: string, email: string, pessoaJuridicacode: boolean, ativo: boolean, phones?: Phone[], addresses?: Address[]) {
-	let data: any = {
+	const data: any = {
 		nome: name,
 		cpf_cnpj: cpfCnpj,
 		email,
@@ -80,47 +80,47 @@ function updatePeople(peopleId: number, name: string, cpfCnpj: string, dtNascime
 
 	if (phones) {
 		data.Phone = {
-		  upsert: phones.map(phone => ({
+			upsert: phones.map(phone => ({
 			where: {
 				id: phone.id
 			},
 			update: {
-			  numero: phone.numero,
-			  tipo_telefone: phone.tipo_telefone,
+				numero: phone.numero,
+				tipo_telefone: phone.tipo_telefone,
 			},
 			create: {
-			  numero: phone.numero,
-			  tipo_telefone: phone.tipo_telefone,
+				numero: phone.numero,
+				tipo_telefone: phone.tipo_telefone,
 			},
-		  })),
+			})),
 		};
 	}
 
 	if (addresses) {
 		data.Address = {
-		  upsert: addresses.map(address => ({
+			upsert: addresses.map(address => ({
 			where: { 
 				id: address.id
 			},
 			update: {
-			  street: address.street,
-			  number: address.number,
-			  neighborhood: address.neighborhood,
-			  cep: address.cep,
-			  city: address.city,
-			  state: address.state,
-			  addressDetail: address.addressDetail,
+				street: address.street,
+				number: address.number,
+				neighborhood: address.neighborhood,
+				cep: address.cep,
+				city: address.city,
+				state: address.state,
+				addressDetail: address.addressDetail,
 			},
 			create: {
-			  street: address.street,
-			  number: address.number,
-			  neighborhood: address.neighborhood,
-			  cep: address.cep,
-			  city: address.city,
-			  state: address.state,
-			  addressDetail: address.addressDetail,
+				street: address.street,
+				number: address.number,
+				neighborhood: address.neighborhood,
+				cep: address.cep,
+				city: address.city,
+				state: address.state,
+				addressDetail: address.addressDetail,
 			},
-		  })),
+			})),
 		};
 	}
 

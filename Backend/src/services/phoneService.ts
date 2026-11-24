@@ -6,14 +6,11 @@ import peopleService from "./peopleService";
 async function createPhone(numero: string, tipoTelefone: string, peopleId: number): Promise<PhoneType> {
 	await peopleService.getPeopleById(peopleId);
 
-	const result = await phoneRepository.create(numero, tipoTelefone, peopleId);
-	
-	return result;
+	return await phoneRepository.create(numero, tipoTelefone, peopleId);
 }
 
 async function getPhones() {
-	const result = await phoneRepository.listOfPhones();
-	return result;
+	return await phoneRepository.listOfPhones();
 }
 
 async function getPhoneById(phoneId: number) {
@@ -30,17 +27,13 @@ async function updatePhone(phoneId: number, numero: string, tipoTelefone: string
 	await getPhoneById(phoneId);
 	await peopleService.getPeopleById(peopleId);
 
-	const result = await phoneRepository.update(phoneId, numero, tipoTelefone, peopleId);
-
-	return result;
+	return await phoneRepository.update(phoneId, numero, tipoTelefone, peopleId);
 }
 
 async function deletePhoneById(phoneId: number) {
 	await getPhoneById(phoneId);
 
-	const result = await phoneRepository.deletePhoneById(phoneId);
-
-	return result;
+	return await phoneRepository.deletePhoneById(phoneId);
 }
 
 export default { createPhone, getPhones, getPhoneById, updatePhone, deletePhoneById };

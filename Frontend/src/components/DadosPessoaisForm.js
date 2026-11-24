@@ -3,9 +3,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
 
 export default function DadosPessoaisForm(props) {
-    let {nome,setNome,cpf,setCPF,email,setEmail,startDate, setStartDate} = props;
+    const {nome,setNome,cpf,setCPF,email,setEmail,startDate, setStartDate} = props;
     return (
-	    <>
+        <>
             <Input>
                 <label htmlFor="nome" >Nome:</label>
                 <input required name="nome" value={nome} onChange={(e)=>{setNome(e.target.value)}} type="text"></input>

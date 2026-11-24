@@ -9,14 +9,11 @@ async function createPeople(name: string, cpfCnpj: string, dtNascimento: string,
 		throw CannotCreatingPeople();
 	}
 	
-	const result = await peopleRepository.createPeople(name, cpfCnpj, dtNascimento, email, pessoaJuridicacode, phones, addresses);
-
-	return result;
+	return await peopleRepository.createPeople(name, cpfCnpj, dtNascimento, email, pessoaJuridicacode, phones, addresses);
 }
 
 async function getPeoples() {
-	const result = await peopleRepository.findPeople();
-	return result;
+	return await peopleRepository.findPeople();
 }
 
 async function getPeopleById(peopleId: number) {
@@ -51,17 +48,13 @@ async function updatePeople(peopleId: number, name: string, cpfCnpj: string, dtN
 		});
 	}
 
-	const result = await peopleRepository.updatePeople(peopleId, name, cpfCnpj, dtNascimento, email, pessoaJuridicacode, ativo, phones, addresses);
-
-	return result;
+	return await peopleRepository.updatePeople(peopleId, name, cpfCnpj, dtNascimento, email, pessoaJuridicacode, ativo, phones, addresses);
 }
 
 async function deletePeopleById(peopleId: number) {
 	await getPeopleById(peopleId);
 
-	const result = await peopleRepository.deletePeople(peopleId);
-
-	return result;
+	return await peopleRepository.deletePeople(peopleId);
 }
 
 export default { createPeople, getPeoples, getPeopleById, updatePeople, deletePeopleById };

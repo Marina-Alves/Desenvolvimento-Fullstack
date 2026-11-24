@@ -9,27 +9,27 @@ import "react-datepicker/dist/react-datepicker.css";
 import DadosPessoaisForm from "../components/DadosPessoaisForm.js";
 
 export default function App() {
-    let [nome,setNome] = useState("");
-    let [cpf,setCPF] = useState("");
-    let [email,setEmail] = useState("");
-    let [cep,setCEP] = useState("");
-    let [logradouro,setLogradouro] = useState("");
-    let [complemento,setComplemento] = useState("");
-    let [setor,setSetor] = useState("");
-    let [cidade,setCidade] = useState("");
-    let [telefones,setTelefones] = useState([]);
-    let [selectedUF,setSelectedUF] = useState('AC');
-    let [houseNumber,setHouseNumber] = useState('');
-    let [dadosGravados,setDadosGravados] = useState([]);
+    const [nome,setNome] = useState("");
+    const [cpf,setCPF] = useState("");
+    const [email,setEmail] = useState("");
+    const [cep,setCEP] = useState("");
+    const [logradouro,setLogradouro] = useState("");
+    const [complemento,setComplemento] = useState("");
+    const [setor,setSetor] = useState("");
+    const [cidade,setCidade] = useState("");
+    const [telefones,setTelefones] = useState([]);
+    const [selectedUF,setSelectedUF] = useState('AC');
+    const [houseNumber,setHouseNumber] = useState('');
+    const [dadosGravados,setDadosGravados] = useState([]);
 	const [startDate, setStartDate] = useState(new Date());
-    let [id,setId] = useState(0);
-	let [idAdress,setIdAdress] = useState(0);
-    let [change,setChange] = useState(false);
-    let [loading,setIsLoading] = useState(false);
-	let ufs = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
+    const [id,setId] = useState(0);
+	const [idAdress,setIdAdress] = useState(0);
+    const [change,setChange] = useState(false);
+    const [loading,setIsLoading] = useState(false);
+	const ufs = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
     useEffect(()=>{
-		let arr = [];
+		const arr = [];
 		for(let i=0; i<5;i++){
 			arr.push({
 			id:0,
@@ -57,11 +57,11 @@ export default function App() {
     useEffect(()=>{
 		async function getDados(){
 			setIsLoading(true);
-			let response = await axios.get(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/people`);
+			const response = await axios.get(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/people`);
 			setIsLoading(false);
-			let arr = []
+			const arr = []
 			response.data.forEach(res => {
-				let obj = {
+				const obj = {
 				id: res.id,
 				nome: res.nome,
 				cpf: res.cpf_cnpj,
@@ -77,10 +77,10 @@ export default function App() {
 
     return (
 	<Container>
-	    <>
+        <>
 			<Titulo> <h1> Cadastro de pessoa </h1> </Titulo>
-	    </>
-	    <ContainerTop>
+        </>
+        <ContainerTop>
 			<ContainerForm>
 				<form method="POST" onSubmit={(e)=>handleSubmit(e,nome,cpf,email,cep,logradouro,complemento,setor,cidade,telefones,selectedUF,startDate,houseNumber,id,idAdress,setChange,setIsLoading)}>
 					<DadosPessoaisForm nome={nome} setNome={setNome} cpf={cpf} setCPF={setCPF} email={email} setEmail={setEmail} startDate={startDate} setStartDate={setStartDate}/>
@@ -153,7 +153,7 @@ export default function App() {
 								name="numero" 
 								value={telefone.numero} 
 								onChange={(e)=>{
-									let arr = [...telefones];
+									const arr = [...telefones];
 									arr[i].numero = e.target.value;
 									setTelefones(arr);
 								}} 
@@ -164,7 +164,7 @@ export default function App() {
 								name="tipo_telefone" 
 								value={telefone.tipo_telefone} 
 								onChange={(e)=>{
-									let arr = [...telefones];
+									const arr = [...telefones];
 									arr[i].tipo_telefone = e.target.value;
 									setTelefones(arr);
 								}} 
@@ -180,7 +180,7 @@ export default function App() {
 				<button onClick={()=>{
 					
 					if(telefones.length > 5){
-					let arr = [...telefones];
+					const arr = [...telefones];
 					arr.pop();
 					setTelefones(arr);
 					
@@ -192,7 +192,7 @@ export default function App() {
 				</button>
 				<button onClick={()=>{
 					
-					let arr = [...telefones];
+					const arr = [...telefones];
 					
 					arr.push({
 					id:0,
@@ -205,49 +205,49 @@ export default function App() {
 				</button>
 				</ContainerBotoesTelefones>
 			</ContainerTelefones>
-	    </ContainerTop>
-	    <ContainerBottom>
+        </ContainerTop>
+        <ContainerBottom>
 		{
-		    loading === true ? 
+            loading === true ? 
 			<ReactLoading type="spin" color="#274472" height={150} width={150} /> 
 			:
 			dadosGravados.length === 0 ?
-			    <p>Não há dados cadastrados</p>
+                <p>Não há dados cadastrados</p>
 			:
-			    <table>
+                <table>
 				<thead>
-				    <tr>
+                    <tr>
 					<th> Nome </th>
 					<th> CPF </th>
 					<th> E-mail </th>
 					<th> Telefone/Descrição </th>
 					<th> <p></p> </th>
-				    </tr>
+                    </tr>
 				</thead>
 				<tbody>
-				    {
+                    {
 					dadosGravados.map((dadoGravado)=>{
-					    return (
+                        return (
 						<tr key={dadoGravado.id}>
-						    <td> {dadoGravado.nome} </td>
-						    <td> {dadoGravado.cpf} </td>
-						    <td> {dadoGravado.email} </td>
-						    <td> {
-							    dadoGravado.telefones.map((telefone,i)=>{
+                            <td> {dadoGravado.nome} </td>
+                            <td> {dadoGravado.cpf} </td>
+                            <td> {dadoGravado.email} </td>
+                            <td> {
+                                dadoGravado.telefones.map((telefone,i)=>{
 								return(
-								    <>
+                                    <>
 									{telefone.numero + " / " +  telefone.tipo_telefone}
 									<br></br>
-								    </>
+                                    </>
 								)
-							    })
+                                })
 							}
-						    </td>
-						    <td>
+                            </td>
+                            <td>
 							<ContainerBotaoEditar>
-							    <button 
+                                <button 
 								onClick={()=>{
-								    handleClick(
+                                    handleClick(
 										dadoGravado.id,
 										setNome,
 										setCPF,
@@ -264,21 +264,21 @@ export default function App() {
 										setIsLoading,
 										setSelectedUF,
 										setHouseNumber
-								    );
+                                    );
 								}}
-							    >
+                                >
 								<AiOutlineEdit/>
-							    </button>
+                                </button>
 							</ContainerBotaoEditar>
-						    </td>
+                            </td>
 						</tr>
-					    )
+                        )
 					})
-				    }
+                    }
 				</tbody>
-			    </table>
+                </table>
 		}    
-	    </ContainerBottom>
+        </ContainerBottom>
 	</Container>
     )
 }
@@ -288,13 +288,13 @@ async function handleSubmit(e,nome,cpf,email,cep,logradouro,complemento,setor,ci
     if(id === 0 ){
 		try{
 			setIsLoading(true);
-			let phones = telefones.filter((telefone)=>{
+			const phones = telefones.filter((telefone)=>{
 			if(telefone.id === 0){
 				delete telefone.id;
 			}
 			return (telefone.numero !== '' && telefone.tipo_telefone !== '')
 			})
-			let addresses = [{
+			const addresses = [{
 				'cep':cep, 
 				'street':logradouro,
 				'number':houseNumber,
@@ -303,7 +303,7 @@ async function handleSubmit(e,nome,cpf,email,cep,logradouro,complemento,setor,ci
 				'state':selectedUF,
 				'addressDetail':complemento,
 			}];
-			let cpfCnpj = cpf.replace(/[.-]/g, '');
+			const cpfCnpj = cpf.replace(/[.-]/g, '');
 			let dtNascimento = new Date(startDate);
 			dtNascimento = dtNascimento.toISOString().split('T')[0];
 			await axios.post(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/people`,{name:nome,cpfCnpj,email,dtNascimento,pessoaJuridica:false,phones,addresses});
@@ -327,7 +327,7 @@ async function handleSubmit(e,nome,cpf,email,cep,logradouro,complemento,setor,ci
 			let phones = telefones.filter((telefone)=>{
 				return (telefone.numero !== '' && telefone.tipo_telefone !== '')
 			})
-			let addresses = [{
+			const addresses = [{
 				'cep':cep, 
 				'street':logradouro,
 				'number':houseNumber,
@@ -340,7 +340,7 @@ async function handleSubmit(e,nome,cpf,email,cep,logradouro,complemento,setor,ci
 				phones = null;
 			}
 			addresses[0].id = idAdress;
-			let cpfCnpj = cpf.replace(/[.-]/g, '');
+			const cpfCnpj = cpf.replace(/[.-]/g, '');
 			let dtNascimento = new Date(startDate);
 			dtNascimento = dtNascimento.toISOString().split('T')[0];
 			await axios.put(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/people/`+id,{name:nome,cpfCnpj,email,dtNascimento,pessoaJuridica:false,phones,addresses});
@@ -375,11 +375,11 @@ async function deletePessoa(e,id,setChange,setIsLoading){
 
 async function handleClick(userId,setNome,setCPF,setEmail,setCEP,setLogradouro,setComplemento,setSetor,setCidade,setStartDate,setTelefones,setId,setIdAdress,setIsLoading,setSelectedUF,setHouseNumber){
     setIsLoading(true);
-    let response = await axios.get(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/people/`+userId);
+    const response = await axios.get(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/people/`+userId);
     setIsLoading(false);
-    let res = response.data;
-    let telefones = res.Phone;
-    let telefonesDescricao = [];
+    const res = response.data;
+    const telefones = res.Phone;
+    const telefonesDescricao = [];
     let tam = 5;
     if(telefones.length > tam){
 		tam = telefones.length;
@@ -387,10 +387,10 @@ async function handleClick(userId,setNome,setCPF,setEmail,setCEP,setLogradouro,s
 
     for(let i=0;i<tam;i++){
 	telefonesDescricao.push({
-	    id: (telefones[i]?.id === undefined ? 0 : telefones[i].id),
-	    idPessoa: (telefones[i]?.peopleId === undefined ? '' : telefones[i].peopleId),
-	    numero: (telefones[i]?.numero === undefined ? '' : telefones[i].numero),
-	    tipo_telefone: (telefones[i]?.tipo_telefone === undefined ? '' : telefones[i].tipo_telefone)
+        id: (telefones[i]?.id === undefined ? 0 : telefones[i].id),
+        idPessoa: (telefones[i]?.peopleId === undefined ? '' : telefones[i].peopleId),
+        numero: (telefones[i]?.numero === undefined ? '' : telefones[i].numero),
+        tipo_telefone: (telefones[i]?.tipo_telefone === undefined ? '' : telefones[i].tipo_telefone)
 	})
     }
     
@@ -459,8 +459,8 @@ const ContainerTelefones = styled.div`
 			}
 		}
 	tr{
-	    width: 100%;
-	    td{
+        width: 100%;
+        td{
 			width: 50%;
 			input{
 				margin-top: 5px;
@@ -471,15 +471,15 @@ const ContainerTelefones = styled.div`
 				padding-left: 10px;
 				font-size: 22px;
 			}
-	    }
-	    th {
+        }
+        th {
 			width: 50%;
 			font-size: 26px;
 			font-weight: bold;
 			border-radius: 10px ;
 			color: white;
 			background-color: #5885AF ;
-	    }
+        }
 	}
     }
 `
@@ -508,25 +508,25 @@ const ContainerBottom = styled.div`
 	width: 90%;
 	margin-bottom: 25px;
 	tr{
-	    width: 100%;
-	    td{
+        width: 100%;
+        td{
 		min-height: 100px;
 		text-align: center;
 		font-size: 22px;
 		div{
-		    height: 100%;
-		    display:flex;
-		    align-items: center;
-		    justify-content: center;
-		    
+            height: 100%;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            
 		}
 		border: 1px solid black;
-	    }
-	    th{
+        }
+        th{
 		font-size: 26px;
 		font-weight: bold;
 		border: 1px solid black;
-	    }
+        }
 	}
     }
 `
@@ -542,20 +542,20 @@ const ContainerForm = styled.div`
 	flex-direction: column;
 	width: 85%;
 	input{
-	    font-size: 22px;
-	    border-radius: 10px;
-	    border: 1px solid black;
-	    margin-top: 10px;
-	    padding-left: 10px;
+        font-size: 22px;
+        border-radius: 10px;
+        border: 1px solid black;
+        margin-top: 10px;
+        padding-left: 10px;
 	}
 	select{
-	    margin-top: 10px;
-	    font-size: 22px;
-	    width: 60%;
+        margin-top: 10px;
+        font-size: 22px;
+        width: 60%;
 	}
 	label{
-	    font-size: 22px;
-	    margin-top: 10px;
+        font-size: 22px;
+        margin-top: 10px;
 	}
     }
 `
