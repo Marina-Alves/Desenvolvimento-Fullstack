@@ -5,7 +5,7 @@ import addressService from "../services/addressService";
 async function createAddress(req: Request, res: Response) {
 	try {
 		const { street, number, neighborhood, cep, city, state, addressDetail, peopleId } = req.body;
-		const result = await addressService.createAddress(street, number, neighborhood, cep, city, state, addressDetail, peopleId);
+		const result = await addressService.createAddress({ street, number, neighborhood, cep, city, state, addressDetail }, peopleId);
 		return res.status(httpStatus.CREATED).send(result);
 	} catch (error) {
 		if (error.name === 'NotFoundError') {
@@ -47,7 +47,7 @@ async function updateAddressById(req: Request, res: Response) {
 	try {
 		const { addressId } = req.params;
 		const { street, number, neighborhood, cep, city, state, addressDetail, peopleId } = req.body;
-		const result = await addressService.updateAddress(Number(addressId), street, number, neighborhood, cep, city, state, addressDetail, peopleId);
+		const result = await addressService.updateAddress(Number(addressId), { street, number, neighborhood, cep, city, state, addressDetail }, peopleId);
 		return res.status(httpStatus.OK).send(result);
 	} catch (error) {
 		if (error.name === 'NotFoundError') {

@@ -1,6 +1,7 @@
 import prisma from "../config/database";
+import { AddressInput } from "../utils/protocols";
 
-function create(street: string, number: string, neighborhood: string, cep: string, city: string, state: string, addressDetail: string, peopleId: number) {
+function create({ street, number, neighborhood, cep, city, state, addressDetail }: AddressInput, peopleId: number) {
 	return prisma.address.create({
 		data: {
 			street,
@@ -27,7 +28,7 @@ function findAddressById(addressId: number) {
 	});
 }
 
-function checkAddressesEquals(street: string, number: string, neighborhood: string, cep: string, city: string, state: string, addressDetail: string) {
+function checkAddressesEquals({ street, number, neighborhood, cep, city, state, addressDetail }: AddressInput) {
 	return prisma.address.findFirst({
 		where: {
 			street,
@@ -41,7 +42,7 @@ function checkAddressesEquals(street: string, number: string, neighborhood: stri
 	});
 }
 
-function update(addressId: number, street: string, number: string, neighborhood: string, cep: string, city: string, state: string, addressDetail: string, peopleId: number) {
+function update(addressId: number, { street, number, neighborhood, cep, city, state, addressDetail }: AddressInput, peopleId: number) {
 	return prisma.address.update({
 		where: {
 			id: addressId,

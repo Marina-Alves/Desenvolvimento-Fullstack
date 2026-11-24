@@ -68,6 +68,11 @@ describe("POST /people", () => {
 		const res = await request(app).post("/people").send(body);
 		expect(res.status).toBe(201);
 		expect(mockPrisma.people.create).toHaveBeenCalledTimes(1);
+		expect(mockPrisma.people.create).toHaveBeenCalledWith(
+			expect.objectContaining({
+				data: expect.objectContaining({ nome: "Maria", cpf_cnpj: "12345678901", pessoa_juridica: false, ativo: true }),
+			}),
+		);
 	});
 
 	it("retorna 409 quando o CPF já está cadastrado", async () => {
@@ -85,6 +90,12 @@ describe("PUT /people/:id", () => {
 		const res = await request(app).put("/people/1").send({ ...body, name: "Maria Silva", ativo: true });
 		expect(res.status).toBe(200);
 		expect(res.body.nome).toBe("Maria Silva");
+		expect(mockPrisma.people.update).toHaveBeenCalledWith(
+			expect.objectContaining({
+				where: { id: 1 },
+				data: expect.objectContaining({ nome: "Maria Silva", ativo: true }),
+			}),
+		);
 	});
 
 	it("retorna 404 quando a pessoa não existe", async () => {
