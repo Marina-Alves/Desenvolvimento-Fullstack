@@ -1,0 +1,19 @@
+{
+  "name": "desenvolvimento-fullstack-tooling",
+  "private": true,
+  "description": "Ferramentas de qualidade (an\u00e1lise est\u00e1tica) usadas localmente e no pipeline de CI/CD",
+  "scripts": {
+    "lint": "eslint --no-eslintrc -c .eslintrc.json --ext .ts,.js Backend/src Frontend/src",
+    "lint:report": "eslint --no-eslintrc -c .eslintrc.json --ext .ts,.js -f json -o reports/eslint.json Backend/src Frontend/src",
+    "dup": "jscpd --config .jscpd.json"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.0",
+    "eslint-plugin-sonarjs": "^1.0.4",
+    "jscpd": "^4.0.5",
+    "typescript": "~5.5.4"
+  }
+}

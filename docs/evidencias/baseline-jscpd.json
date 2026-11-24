@@ -1,0 +1,917 @@
+{
+  "statistics": {
+    "detectionDate": "2026-11-24T23:42:38.683Z",
+    "formats": {
+      "javascript": {
+        "sources": {
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Frontend/src/components/DadosPessoaisForm.js": {
+            "lines": 35,
+            "tokens": 386,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Frontend/src/components/Cadastro.js": {
+            "lines": 607,
+            "tokens": 4259,
+            "sources": 1,
+            "clones": 4,
+            "duplicatedLines": 32,
+            "duplicatedTokens": 270,
+            "percentage": 5.27,
+            "percentageTokens": 6.34,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Frontend/src/index.js": {
+            "lines": 6,
+            "tokens": 57,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Frontend/src/App.js": {
+            "lines": 79,
+            "tokens": 134,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 727,
+          "tokens": 4836,
+          "sources": 4,
+          "clones": 2,
+          "duplicatedLines": 16,
+          "duplicatedTokens": 135,
+          "percentage": 2.2,
+          "percentageTokens": 2.79,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "typescript": {
+        "sources": {
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/utils/protocols.ts": {
+            "lines": 43,
+            "tokens": 274,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/services/phoneService.ts": {
+            "lines": 46,
+            "tokens": 388,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/services/peopleService.ts": {
+            "lines": 67,
+            "tokens": 684,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/services/addressService.ts": {
+            "lines": 57,
+            "tokens": 597,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/routes/phoneRoute.ts": {
+            "lines": 13,
+            "tokens": 104,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/routes/peopleRoute.ts": {
+            "lines": 13,
+            "tokens": 104,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/routes/index.ts": {
+            "lines": 12,
+            "tokens": 83,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/routes/addressRoute.ts": {
+            "lines": 13,
+            "tokens": 104,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/repositories/phoneRepository.ts": {
+            "lines": 46,
+            "tokens": 302,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/repositories/peopleRepository.ts": {
+            "lines": 151,
+            "tokens": 1056,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 18,
+            "duplicatedTokens": 144,
+            "percentage": 11.92,
+            "percentageTokens": 13.64,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/repositories/addressRepository.ts": {
+            "lines": 70,
+            "tokens": 510,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/errors/not-found-error.ts": {
+            "lines": 8,
+            "tokens": 50,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/errors/index.ts": {
+            "lines": 6,
+            "tokens": 52,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/errors/cannot-updating-without.ts": {
+            "lines": 15,
+            "tokens": 116,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/errors/cannot-updating-people.ts": {
+            "lines": 8,
+            "tokens": 50,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/errors/cannot-updating-address.ts": {
+            "lines": 8,
+            "tokens": 50,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/errors/cannot-creating-people.ts": {
+            "lines": 8,
+            "tokens": 50,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/errors/cannot-creating-address.ts": {
+            "lines": 8,
+            "tokens": 50,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/controllers/phoneController.ts": {
+            "lines": 73,
+            "tokens": 803,
+            "sources": 1,
+            "clones": 16,
+            "duplicatedLines": 146,
+            "duplicatedTokens": 1377,
+            "percentage": 200,
+            "percentageTokens": 171.48,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/controllers/peopleController.ts": {
+            "lines": 79,
+            "tokens": 934,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 27,
+            "duplicatedTokens": 257,
+            "percentage": 34.18,
+            "percentageTokens": 27.52,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/controllers/addressController.ts": {
+            "lines": 78,
+            "tokens": 938,
+            "sources": 1,
+            "clones": 5,
+            "duplicatedLines": 43,
+            "duplicatedTokens": 446,
+            "percentage": 55.13,
+            "percentageTokens": 47.55,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/config/database.ts": {
+            "lines": 6,
+            "tokens": 41,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/tmp/claude-0/-home-user-desenvolvimento-fullstack/964816e9-8777-5cbe-9232-f3fe9511338d/scratchpad/wt100/Backend/src/app.ts": {
+            "lines": 16,
+            "tokens": 134,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 844,
+          "tokens": 7474,
+          "sources": 23,
+          "clones": 13,
+          "duplicatedLines": 117,
+          "duplicatedTokens": 1112,
+          "percentage": 13.86,
+          "percentageTokens": 14.88,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 1571,
+      "tokens": 12310,
+      "sources": 27,
+      "clones": 15,
+      "duplicatedLines": 133,
+      "duplicatedTokens": 1247,
+      "percentage": 8.47,
+      "percentageTokens": 10.13,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [
+    {
+      "format": "javascript",
+      "lines": 12,
+      "fragment": "return (telefone.numero !== '' && telefone.tipo_telefone !== '')\n\t\t\t})\n\t\t\tlet addresses = [{\n\t\t\t\t'cep':cep, \n\t\t\t\t'street':logradouro,\n\t\t\t\t'number':houseNumber,\n\t\t\t\t'neighborhood':setor,\n\t\t\t\t'city':cidade,\n\t\t\t\t'state':selectedUF,\n\t\t\t\t'addressDetail':complemento,\n\t\t\t}];\n\t\t\tif",
+      "tokens": 85,
+      "firstFile": {
+        "name": "Frontend/src/components/Cadastro.js",
+        "start": 328,
+        "end": 339,
+        "startLoc": {
+          "line": 328,
+          "column": 5,
+          "position": 3161
+        },
+        "endLoc": {
+          "line": 339,
+          "column": 6,
+          "position": 3246
+        }
+      },
+      "secondFile": {
+        "name": "Frontend/src/components/Cadastro.js",
+        "start": 295,
+        "end": 306,
+        "startLoc": {
+          "line": 295,
+          "column": 4,
+          "position": 2813
+        },
+        "endLoc": {
+          "line": 306,
+          "column": 7,
+          "position": 2898
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 6,
+      "fragment": ",{name:nome,cpfCnpj,email,dtNascimento,pessoaJuridica:false,phones,addresses});\n\t\t\tsetIsLoading(false);\n\t\t\tsetChange(true);\n\t\t}\n\t\tcatch(e){\n\t\t\talert(e",
+      "tokens": 50,
+      "firstFile": {
+        "name": "Frontend/src/components/Cadastro.js",
+        "start": 346,
+        "end": 351,
+        "startLoc": {
+          "line": 346,
+          "column": 115,
+          "position": 3361
+        },
+        "endLoc": {
+          "line": 351,
+          "column": 11,
+          "position": 3411
+        }
+      },
+      "secondFile": {
+        "name": "Frontend/src/components/Cadastro.js",
+        "start": 309,
+        "end": 314,
+        "startLoc": {
+          "line": 309,
+          "column": 112,
+          "position": 2974
+        },
+        "endLoc": {
+          "line": 314,
+          "column": 59,
+          "position": 3024
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 10,
+      "fragment": ": {\n\t\t\t  street: address.street,\n\t\t\t  number: address.number,\n\t\t\t  neighborhood: address.neighborhood,\n\t\t\t  cep: address.cep,\n\t\t\t  city: address.city,\n\t\t\t  state: address.state,\n\t\t\t  addressDetail: address.addressDetail,\n\t\t\t},\n\t\t  }",
+      "tokens": 72,
+      "firstFile": {
+        "name": "Backend/src/repositories/peopleRepository.ts",
+        "start": 114,
+        "end": 123,
+        "startLoc": {
+          "line": 114,
+          "column": 10,
+          "position": 817
+        },
+        "endLoc": {
+          "line": 123,
+          "column": 6,
+          "position": 889
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/repositories/peopleRepository.ts",
+        "start": 105,
+        "end": 114,
+        "startLoc": {
+          "line": 105,
+          "column": 10,
+          "position": 744
+        },
+        "endLoc": {
+          "line": 114,
+          "column": 10,
+          "position": 816
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 10,
+      "fragment": ").send(result);\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\treturn res.sendStatus(httpStatus.BAD_REQUEST);\n\t}\n}\n\nasync function listPhoneById",
+      "tokens": 80,
+      "firstFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 22,
+        "end": 31,
+        "startLoc": {
+          "line": 22,
+          "column": 34,
+          "position": 243
+        },
+        "endLoc": {
+          "line": 31,
+          "column": 29,
+          "position": 323
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 10,
+        "end": 19,
+        "startLoc": {
+          "line": 10,
+          "column": 39,
+          "position": 116
+        },
+        "endLoc": {
+          "line": 19,
+          "column": 26,
+          "position": 196
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": ");\n\t\treturn res.status(httpStatus.OK).send(result);\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\treturn res.sendStatus(httpStatus.BAD_REQUEST);\n\t}\n}\n\nasync function updatePhoneById",
+      "tokens": 93,
+      "firstFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 34,
+        "end": 44,
+        "startLoc": {
+          "line": 34,
+          "column": 65,
+          "position": 377
+        },
+        "endLoc": {
+          "line": 44,
+          "column": 31,
+          "position": 470
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 21,
+        "end": 19,
+        "startLoc": {
+          "line": 21,
+          "column": 47,
+          "position": 230
+        },
+        "endLoc": {
+          "line": 19,
+          "column": 26,
+          "position": 196
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": ");\n\t\treturn res.status(httpStatus.OK).send(result);\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\treturn res.sendStatus(httpStatus.BAD_REQUEST);\n\t}\n}\n\nasync function deletePhoneById",
+      "tokens": 93,
+      "firstFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 48,
+        "end": 58,
+        "startLoc": {
+          "line": 48,
+          "column": 97,
+          "position": 555
+        },
+        "endLoc": {
+          "line": 58,
+          "column": 31,
+          "position": 648
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 21,
+        "end": 19,
+        "startLoc": {
+          "line": 21,
+          "column": 47,
+          "position": 230
+        },
+        "endLoc": {
+          "line": 19,
+          "column": 26,
+          "position": 196
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 10,
+      "fragment": ");\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\treturn res.sendStatus(httpStatus.BAD_REQUEST);\n\t}\n}\n\nexport",
+      "tokens": 71,
+      "firstFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 64,
+        "end": 73,
+        "startLoc": {
+          "line": 64,
+          "column": 46,
+          "position": 711
+        },
+        "endLoc": {
+          "line": 73,
+          "column": 7,
+          "position": 782
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 10,
+        "end": 19,
+        "startLoc": {
+          "line": 10,
+          "column": 52,
+          "position": 121
+        },
+        "endLoc": {
+          "line": 19,
+          "column": 6,
+          "position": 192
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": "));\n\t\treturn res.status(httpStatus.OK).send(result);\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\treturn res.sendStatus(httpStatus.BAD_REQUEST);\n\t}\n}\n\nasync function changePeopleById",
+      "tokens": 94,
+      "firstFile": {
+        "name": "Backend/src/controllers/peopleController.ts",
+        "start": 30,
+        "end": 40,
+        "startLoc": {
+          "line": 30,
+          "column": 67,
+          "position": 361
+        },
+        "endLoc": {
+          "line": 40,
+          "column": 32,
+          "position": 455
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 34,
+        "end": 19,
+        "startLoc": {
+          "line": 34,
+          "column": 64,
+          "position": 376
+        },
+        "endLoc": {
+          "line": 19,
+          "column": 26,
+          "position": 196
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 7,
+      "fragment": ");\n\t\treturn res.status(httpStatus.OK).send(result);\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\tif",
+      "tokens": 71,
+      "firstFile": {
+        "name": "Backend/src/controllers/peopleController.ts",
+        "start": 45,
+        "end": 51,
+        "startLoc": {
+          "line": 45,
+          "column": 145,
+          "position": 572
+        },
+        "endLoc": {
+          "line": 51,
+          "column": 5,
+          "position": 643
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 21,
+        "end": 15,
+        "startLoc": {
+          "line": 21,
+          "column": 47,
+          "position": 230
+        },
+        "endLoc": {
+          "line": 15,
+          "column": 9,
+          "position": 174
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "));\n\n\t\treturn res.sendStatus(httpStatus.NO_CONTENT);\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\treturn res.sendStatus(httpStatus.BAD_REQUEST);\n\t}\n}\n\nexport default { createPeople",
+      "tokens": 92,
+      "firstFile": {
+        "name": "Backend/src/controllers/peopleController.ts",
+        "start": 68,
+        "end": 79,
+        "startLoc": {
+          "line": 68,
+          "column": 55,
+          "position": 827
+        },
+        "endLoc": {
+          "line": 79,
+          "column": 30,
+          "position": 919
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 62,
+        "end": 73,
+        "startLoc": {
+          "line": 62,
+          "column": 52,
+          "position": 696
+        },
+        "endLoc": {
+          "line": 73,
+          "column": 29,
+          "position": 788
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 7,
+      "fragment": ", peopleId);\n\t\treturn res.status(httpStatus.CREATED).send(result);\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\tif (error.name === 'CannotCreatingAddress'",
+      "tokens": 83,
+      "firstFile": {
+        "name": "Backend/src/controllers/addressController.ts",
+        "start": 8,
+        "end": 14,
+        "startLoc": {
+          "line": 8,
+          "column": 114,
+          "position": 129
+        },
+        "endLoc": {
+          "line": 14,
+          "column": 45,
+          "position": 212
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 9,
+        "end": 51,
+        "startLoc": {
+          "line": 9,
+          "column": 71,
+          "position": 100
+        },
+        "endLoc": {
+          "line": 51,
+          "column": 44,
+          "position": 652
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": "();\n\t\treturn res.status(httpStatus.OK).send(result);\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\treturn res.sendStatus(httpStatus.BAD_REQUEST);\n\t}\n}\n\nasync function listAddressById",
+      "tokens": 94,
+      "firstFile": {
+        "name": "Backend/src/controllers/addressController.ts",
+        "start": 23,
+        "end": 33,
+        "startLoc": {
+          "line": 23,
+          "column": 51,
+          "position": 296
+        },
+        "endLoc": {
+          "line": 33,
+          "column": 31,
+          "position": 390
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 21,
+        "end": 19,
+        "startLoc": {
+          "line": 21,
+          "column": 46,
+          "position": 229
+        },
+        "endLoc": {
+          "line": 19,
+          "column": 26,
+          "position": 196
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": "));\n\t\treturn res.status(httpStatus.OK).send(result);\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\treturn res.sendStatus(httpStatus.BAD_REQUEST);\n\t}\n}\n\nasync function updateAddressById",
+      "tokens": 94,
+      "firstFile": {
+        "name": "Backend/src/controllers/addressController.ts",
+        "start": 36,
+        "end": 46,
+        "startLoc": {
+          "line": 36,
+          "column": 70,
+          "position": 443
+        },
+        "endLoc": {
+          "line": 46,
+          "column": 33,
+          "position": 537
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 34,
+        "end": 19,
+        "startLoc": {
+          "line": 34,
+          "column": 64,
+          "position": 376
+        },
+        "endLoc": {
+          "line": 19,
+          "column": 26,
+          "position": 196
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 7,
+      "fragment": ", peopleId);\n\t\treturn res.status(httpStatus.OK).send(result);\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\tif (error.name === 'CannotUpdatingAddress'",
+      "tokens": 83,
+      "firstFile": {
+        "name": "Backend/src/controllers/addressController.ts",
+        "start": 50,
+        "end": 56,
+        "startLoc": {
+          "line": 50,
+          "column": 133,
+          "position": 649
+        },
+        "endLoc": {
+          "line": 56,
+          "column": 45,
+          "position": 732
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 48,
+        "end": 51,
+        "startLoc": {
+          "line": 48,
+          "column": 87,
+          "position": 552
+        },
+        "endLoc": {
+          "line": 51,
+          "column": 44,
+          "position": 652
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "));\n\n\t\treturn res.sendStatus(httpStatus.NO_CONTENT);\n\t} catch (error) {\n\t\tif (error.name === 'NotFoundError') {\n\t\t\treturn res.status(httpStatus.NOT_FOUND).send(error.message);\n\t\t}\n\t\treturn res.sendStatus(httpStatus.BAD_REQUEST);\n\t}\n}\n\nexport default { createAddress",
+      "tokens": 92,
+      "firstFile": {
+        "name": "Backend/src/controllers/addressController.ts",
+        "start": 67,
+        "end": 78,
+        "startLoc": {
+          "line": 67,
+          "column": 58,
+          "position": 831
+        },
+        "endLoc": {
+          "line": 78,
+          "column": 31,
+          "position": 923
+        }
+      },
+      "secondFile": {
+        "name": "Backend/src/controllers/phoneController.ts",
+        "start": 62,
+        "end": 73,
+        "startLoc": {
+          "line": 62,
+          "column": 52,
+          "position": 696
+        },
+        "endLoc": {
+          "line": 73,
+          "column": 29,
+          "position": 788
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {"ecmaVersion": 2022, "sourceType": "module", "ecmaFeatures": {"jsx": true}},
+  "plugins": ["@typescript-eslint", "sonarjs", "react"],
+  "env": {"es2022": true, "node": true, "browser": true},
+  "extends": ["eslint:recommended", "plugin:sonarjs/recommended-legacy"],
+  "settings": {"react": {"version": "18"}},
+  "rules": {
+    "complexity": ["warn", 10],
+    "max-params": ["warn", 5],
+    "max-lines-per-function": ["warn", 80],
+    "max-lines": ["warn", 300],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-var": "warn", "prefer-const": "warn",
+    "react/jsx-key": "warn", "react/jsx-uses-vars": "warn", "react/jsx-uses-react": "warn"
+  }
+}

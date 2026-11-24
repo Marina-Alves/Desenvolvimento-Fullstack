@@ -1,0 +1,18 @@
+{
+  "path": [
+    "Backend/src",
+    "Frontend/src"
+  ],
+  "minLines": 5,
+  "minTokens": 40,
+  "reporters": [
+    "console",
+    "json"
+  ],
+  "output": "reports",
+  "silent": true,
+  "ignore": [
+    "**/*.test.*",
+    "**/setupTests.js"
+  ]
+}
