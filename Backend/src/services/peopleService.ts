@@ -1,15 +1,14 @@
-import { Phone, Address } from "@prisma/client";
 import peopleRepository from "../repositories/peopleRepository";
-import { PeopleType, WithoutAddressId, WithoutPhoneId } from "../utils/protocols";
+import { PeopleInput, PeopleType, PeopleUpdateInput, WithoutAddressId, WithoutPhoneId } from "../utils/protocols";
 import { notFoundError, CannotCreatingPeople, CannotUpdatingPeople, CannotUpdatingWithout } from "../errors";
 
-async function createPeople(name: string, cpfCnpj: string, dtNascimento: string, email: string, pessoaJuridicacode: boolean, phones: Phone[], addresses: Address[]): Promise<PeopleType> {
-	const resultOfPeople = await peopleRepository.getPeopleByCpfCnpj(cpfCnpj);
+async function createPeople(input: PeopleInput): Promise<PeopleType> {
+	const resultOfPeople = await peopleRepository.getPeopleByCpfCnpj(input.cpfCnpj);
 	if (resultOfPeople) {
 		throw CannotCreatingPeople();
 	}
 	
-	return await peopleRepository.createPeople(name, cpfCnpj, dtNascimento, email, pessoaJuridicacode, phones, addresses);
+	return await peopleRepository.createPeople(input);
 }
 
 async function getPeoples() {
@@ -25,7 +24,8 @@ async function getPeopleById(peopleId: number) {
 	return result;
 }
 
-async function updatePeople(peopleId: number, name: string, cpfCnpj: string, dtNascimento: string, email: string, pessoaJuridicacode: boolean, ativo: boolean, phones: Phone[], addresses: Address[]): Promise<PeopleType> {
+async function updatePeople(peopleId: number, input: PeopleUpdateInput): Promise<PeopleType> {
+	const { cpfCnpj, phones, addresses } = input;
 	const { cpf_cnpj } = await getPeopleById(peopleId);
 	
 	if (cpfCnpj && cpfCnpj !== cpf_cnpj) {
@@ -48,7 +48,7 @@ async function updatePeople(peopleId: number, name: string, cpfCnpj: string, dtN
 		});
 	}
 
-	return await peopleRepository.updatePeople(peopleId, name, cpfCnpj, dtNascimento, email, pessoaJuridicacode, ativo, phones, addresses);
+	return await peopleRepository.updatePeople(peopleId, input);
 }
 
 async function deletePeopleById(peopleId: number) {

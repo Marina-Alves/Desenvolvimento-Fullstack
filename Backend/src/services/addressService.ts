@@ -1,18 +1,18 @@
 import { CannotCreatingAddress, CannotUpdatingAddress, notFoundError } from "../errors";
 import addressRepository from "../repositories/addressRepository";
-import { AddressType } from "../utils/protocols";
+import { AddressInput, AddressType } from "../utils/protocols";
 import peopleService from "./peopleService";
 
-async function createAddress(street: string, number: string, neighborhood: string, cep: string, city: string, state: string, addressDetail: string, peopleId: number): Promise<AddressType> {
+async function createAddress(input: AddressInput, peopleId: number): Promise<AddressType> {
 	await peopleService.getPeopleById(peopleId);
 
-	const checkAddress = await addressRepository.checkAddressesEquals(street, number, neighborhood, cep, city, state, addressDetail);
+	const checkAddress = await addressRepository.checkAddressesEquals(input);
 
 	if (checkAddress) {
 		throw CannotCreatingAddress();
 	}
 
-	return await addressRepository.create(street, number, neighborhood, cep, city, state, addressDetail, peopleId);
+	return await addressRepository.create(input, peopleId);
 }
 
 async function getAddresses() {
@@ -29,16 +29,16 @@ async function getAddressById(addressId: number) {
 	return result;
 }
 
-async function updateAddress(addressId: number, street: string, number: string, neighborhood: string, cep: string, city: string, state: string, addressDetail: string, peopleId: number): Promise<AddressType> {
+async function updateAddress(addressId: number, input: AddressInput, peopleId: number): Promise<AddressType> {
 	await getAddressById(addressId);
 	await peopleService.getPeopleById(peopleId);
-	const checkAddress = await addressRepository.checkAddressesEquals(street, number, neighborhood, cep, city, state, addressDetail);
+	const checkAddress = await addressRepository.checkAddressesEquals(input);
 	
 	if (checkAddress) {
 		throw CannotUpdatingAddress();
 	}
 
-	return await addressRepository.update(addressId, street, number, neighborhood, cep, city, state, addressDetail, peopleId);
+	return await addressRepository.update(addressId, input, peopleId);
 }
 
 async function deleteAddressById(addressId: number) {

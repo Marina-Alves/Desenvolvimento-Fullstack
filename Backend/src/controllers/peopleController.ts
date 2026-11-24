@@ -5,7 +5,7 @@ import httpStatus from "http-status";
 async function createPeople(req: Request, res: Response) {
 	const { name, cpfCnpj, dtNascimento, email, pessoaJuridica, phones, addresses } = req.body;
 	try {
-		const result = 	await peopleService.createPeople(name, cpfCnpj, dtNascimento, email, pessoaJuridica, phones, addresses);
+		const result = 	await peopleService.createPeople({ name, cpfCnpj, dtNascimento, email, pessoaJuridica, phones, addresses });
 		return res.status(httpStatus.CREATED).send(result);
 	} catch (error) {
 		if (error.name === 'CannotCreatingPeople') {
@@ -42,7 +42,7 @@ async function changePeopleById(req: Request, res: Response) {
 		const { peopleId } = req.params;
 		const { name, cpfCnpj, dtNascimento, email, pessoaJuridica, ativo, phones, addresses } = req.body;
 		
-		const result = await peopleService.updatePeople(Number(peopleId), name, cpfCnpj, dtNascimento, email, pessoaJuridica, ativo, phones, addresses);
+		const result = await peopleService.updatePeople(Number(peopleId), { name, cpfCnpj, dtNascimento, email, pessoaJuridica, ativo, phones, addresses });
 		return res.status(httpStatus.OK).send(result);
 	} catch (error) {
 		if (error.name === 'NotFoundError') {

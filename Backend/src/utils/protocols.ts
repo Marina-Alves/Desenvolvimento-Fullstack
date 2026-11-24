@@ -1,3 +1,29 @@
+import { Address, Phone } from "@prisma/client";
+
+export type PeopleInput = {
+	name: string,
+	cpfCnpj: string,
+	dtNascimento: string,
+	email: string,
+	pessoaJuridica: boolean,
+	phones?: Phone[],
+	addresses?: Address[]
+}
+
+export type PeopleUpdateInput = PeopleInput & {
+	ativo: boolean
+}
+
+export type AddressInput = {
+	street: string,
+	number: string,
+	neighborhood: string,
+	cep: string,
+	city: string,
+	state: string,
+	addressDetail: string
+}
+
 export type PeopleType = {
 	id: number,
 	nome: string,

@@ -1,13 +1,14 @@
-import { Address, Phone } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import prisma from "../config/database";
+import { PeopleInput, PeopleUpdateInput } from "../utils/protocols";
 
-function createPeople(name: string, cpfCnpj: string, dtNascimento: string, email: string, pessoaJuridicacode: boolean, phones: Phone[], addresses: Address[]) {
-	const data: any = {
+function createPeople({ name, cpfCnpj, dtNascimento, email, pessoaJuridica, phones, addresses }: PeopleInput) {
+	const data: Prisma.PeopleCreateInput = {
 		nome: name,
 		cpf_cnpj: cpfCnpj,
 		dtnascimento: new Date(dtNascimento),
 		email,
-		pessoa_juridica: pessoaJuridicacode,
+		pessoa_juridica: pessoaJuridica,
 		ativo: true
 	};
 
@@ -65,12 +66,12 @@ function getPeopleByCpfCnpj(cpfCnpj: string) {
 	});
 }
 
-function updatePeople(peopleId: number, name: string, cpfCnpj: string, dtNascimento: string, email: string, pessoaJuridicacode: boolean, ativo: boolean, phones?: Phone[], addresses?: Address[]) {
-	const data: any = {
+function updatePeople(peopleId: number, { name, cpfCnpj, dtNascimento, email, pessoaJuridica, ativo, phones, addresses }: PeopleUpdateInput) {
+	const data: Prisma.PeopleUpdateInput = {
 		nome: name,
 		cpf_cnpj: cpfCnpj,
 		email,
-		pessoa_juridica: pessoaJuridicacode,
+		pessoa_juridica: pessoaJuridica,
 		ativo
 	};
 

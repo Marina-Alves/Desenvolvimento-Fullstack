@@ -47,6 +47,34 @@ describe("addresses", () => {
 		expect(res.body).toHaveLength(1);
 	});
 
+	const endereco = { street: "Rua A", number: "10", neighborhood: "Centro", cep: "74000000", city: "Goiânia", state: "GO", addressDetail: "Casa", peopleId: 1 };
+
+	it("POST /address cria o endereço e retorna 201", async () => {
+		mockPrisma.people.findFirst.mockResolvedValue({ id: 1 });
+		mockPrisma.address.findFirst.mockResolvedValue(null);
+		mockPrisma.address.create.mockResolvedValue({ id: 1, ...endereco });
+		const res = await request(app).post("/address").send(endereco);
+		expect(res.status).toBe(201);
+		expect(mockPrisma.address.create).toHaveBeenCalledWith({ data: endereco });
+	});
+
+	it("POST /address retorna 409 quando o endereço já existe", async () => {
+		mockPrisma.people.findFirst.mockResolvedValue({ id: 1 });
+		mockPrisma.address.findFirst.mockResolvedValue({ id: 5, ...endereco });
+		const res = await request(app).post("/address").send(endereco);
+		expect(res.status).toBe(409);
+		expect(mockPrisma.address.create).not.toHaveBeenCalled();
+	});
+
+	it("PUT /address/:id atualiza o endereço e retorna 200", async () => {
+		mockPrisma.people.findFirst.mockResolvedValue({ id: 1 });
+		mockPrisma.address.findFirst.mockResolvedValueOnce({ id: 1, ...endereco }).mockResolvedValueOnce(null);
+		mockPrisma.address.update.mockResolvedValue({ id: 1, ...endereco, city: "Anápolis" });
+		const res = await request(app).put("/address/1").send({ ...endereco, city: "Anápolis" });
+		expect(res.status).toBe(200);
+		expect(mockPrisma.address.update).toHaveBeenCalledWith({ where: { id: 1 }, data: { ...endereco, city: "Anápolis" } });
+	});
+
 	it("GET /address/:id retorna 404 quando não existe", async () => {
 		mockPrisma.address.findFirst.mockResolvedValue(null);
 		const res = await request(app).get("/address/99");
