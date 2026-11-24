@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { listPessoas, getPessoa, createPessoa, updatePessoa, deletePessoa as removePessoa, deleteTelefone } from "../services/api.js";
 import { FcAddRow, FcDeleteRow } from "react-icons/fc";
 import { AiOutlineEdit } from "react-icons/ai";
 import InputMask from "react-input-mask";
@@ -57,7 +57,7 @@ export default function App() {
     useEffect(()=>{
 		async function getDados(){
 			setIsLoading(true);
-			const response = await axios.get(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/people`);
+			const response = await listPessoas();
 			setIsLoading(false);
 			const arr = []
 			response.data.forEach(res => {
@@ -306,7 +306,7 @@ async function handleSubmit(e,nome,cpf,email,cep,logradouro,complemento,setor,ci
 			const cpfCnpj = cpf.replace(/[.-]/g, '');
 			let dtNascimento = new Date(startDate);
 			dtNascimento = dtNascimento.toISOString().split('T')[0];
-			await axios.post(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/people`,{name:nome,cpfCnpj,email,dtNascimento,pessoaJuridica:false,phones,addresses});
+			await createPessoa({name:nome,cpfCnpj,email,dtNascimento,pessoaJuridica:false,phones,addresses});
 			setIsLoading(false);
 			setChange(true);
 		}
@@ -320,7 +320,7 @@ async function handleSubmit(e,nome,cpf,email,cep,logradouro,complemento,setor,ci
 			setIsLoading(true);
 			telefones.map(async (telefone)=>{
 				if(telefone.id !== 0 && (telefone.numero === '' || telefone.tipo_telefone === '')){
-					await axios.delete(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/phone/`+telefone.id);
+					await deleteTelefone(telefone.id);
 				}
 			})
 
@@ -343,7 +343,7 @@ async function handleSubmit(e,nome,cpf,email,cep,logradouro,complemento,setor,ci
 			const cpfCnpj = cpf.replace(/[.-]/g, '');
 			let dtNascimento = new Date(startDate);
 			dtNascimento = dtNascimento.toISOString().split('T')[0];
-			await axios.put(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/people/`+id,{name:nome,cpfCnpj,email,dtNascimento,pessoaJuridica:false,phones,addresses});
+			await updatePessoa(id,{name:nome,cpfCnpj,email,dtNascimento,pessoaJuridica:false,phones,addresses});
 			setIsLoading(false);
 			setChange(true);
 		}
@@ -362,7 +362,7 @@ async function deletePessoa(e,id,setChange,setIsLoading){
     else{
 		try{
 			setIsLoading(true);
-			await axios.delete(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/people/`+id);
+			await removePessoa(id);
 			setIsLoading(false);
 			setChange(true);
 		}
@@ -375,7 +375,7 @@ async function deletePessoa(e,id,setChange,setIsLoading){
 
 async function handleClick(userId,setNome,setCPF,setEmail,setCEP,setLogradouro,setComplemento,setSetor,setCidade,setStartDate,setTelefones,setId,setIdAdress,setIsLoading,setSelectedUF,setHouseNumber){
     setIsLoading(true);
-    const response = await axios.get(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/people/`+userId);
+    const response = await getPessoa(userId);
     setIsLoading(false);
     const res = response.data;
     const telefones = res.Phone;
