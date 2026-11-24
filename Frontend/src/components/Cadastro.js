@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { FcAddRow, FcDeleteRow } from "react-icons/fc";
 import { AiOutlineEdit } from "react-icons/ai";
 import InputMask from "react-input-mask";
@@ -117,7 +117,7 @@ export default function App() {
 
                     <ContainerBotoesForm>
                         <ButtonCadastro type="submit">Cadastrar</ButtonCadastro>
-                        <ButtonDeletar disabled={form.id===0 ? true : false} onClick={(e)=>{deletePessoa(e,form.id,ui)}}>Deletar</ButtonDeletar>
+                        <ButtonDeletar type="button" disabled={form.id===0 ? true : false} onClick={(e)=>{deletePessoa(e,form.id,ui)}}>Deletar</ButtonDeletar>
                     </ContainerBotoesForm>
                 </form>
             </ContainerForm>
@@ -194,10 +194,10 @@ export default function App() {
                             <td> {
                                 dadoGravado.telefones.map((telefone,i)=>{
                                 return(
-                                    <>
+                                    <Fragment key={telefone.id ?? i}>
                                     {telefone.numero + " / " +  telefone.tipo_telefone}
                                     <br></br>
-                                    </>
+                                    </Fragment>
                                 )
                                 })
                             }
@@ -221,6 +221,13 @@ export default function App() {
     )
 }
 
+const MSG_CPF_DUPLICADO = 'CPF já cadastrado por favor informe um novo CPF';
+const MSG_ERRO_GENERICO = 'Não foi possível concluir a operação. Tente novamente.';
+
+function mensagemDeErro(error, mensagemDeConflito) {
+    return error?.response?.status === 409 ? mensagemDeConflito : MSG_ERRO_GENERICO;
+}
+
 async function handleSubmit(e,form,{setChange,setIsLoading}){
     e.preventDefault();
     const criando = form.id === 0;
@@ -230,22 +237,16 @@ async function handleSubmit(e,form,{setChange,setIsLoading}){
             await createPessoa(montarPayloadCriacao(form));
         }
         else{
-            telefonesParaExcluir(form.telefones).map(async (telefone)=>{
-                await deleteTelefone(telefone.id);
-            })
+            await Promise.all(telefonesParaExcluir(form.telefones).map((telefone)=>deleteTelefone(telefone.id)));
             await updatePessoa(form.id, montarPayloadAtualizacao(form));
         }
-        setIsLoading(false);
         setChange(true);
     }
-    catch(e){
-        if(criando){
-            alert('CPF já cadastrado por favor informe um novo CPF');
-            setIsLoading(false);
-        }
-        else{
-            alert(e);
-        }
+    catch(error){
+        alert(mensagemDeErro(error, MSG_CPF_DUPLICADO));
+    }
+    finally{
+        setIsLoading(false);
     }
 }
 
@@ -253,17 +254,18 @@ async function deletePessoa(e,id,{setChange,setIsLoading}){
     e.preventDefault();
     if(id === 0 ){
         alert("Não foi possivel deletar!");
+        return;
     }
-    else{
-        try{
-            setIsLoading(true);
-            await removePessoa(id);
-            setIsLoading(false);
-            setChange(true);
-        }
-        catch(e){
-            alert(e);
-        }
+    try{
+        setIsLoading(true);
+        await removePessoa(id);
+        setChange(true);
+    }
+    catch(error){
+        alert(mensagemDeErro(error, MSG_ERRO_GENERICO));
+    }
+    finally{
+        setIsLoading(false);
     }
 }
 
