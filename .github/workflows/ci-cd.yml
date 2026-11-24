@@ -23,8 +23,6 @@ jobs:
       - run: npm ci
       - name: ESLint (relatório)
         run: npm run lint:report
-        # Baseline da etapa 3 ainda tem alertas; o PR R1 de refatoração remove este continue-on-error.
-        continue-on-error: true
       - name: Duplicação de código (jscpd)
         run: npm run dup
         continue-on-error: true

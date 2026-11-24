@@ -12,14 +12,11 @@ async function createAddress(street: string, number: string, neighborhood: strin
 		throw CannotCreatingAddress();
 	}
 
-	const result = await addressRepository.create(street, number, neighborhood, cep, city, state, addressDetail, peopleId);
-
-	return result;
+	return await addressRepository.create(street, number, neighborhood, cep, city, state, addressDetail, peopleId);
 }
 
 async function getAddresses() {
-	const result = await addressRepository.listOfAddresses();
-	return result;
+	return await addressRepository.listOfAddresses();
 }
 
 async function getAddressById(addressId: number) {
@@ -41,17 +38,13 @@ async function updateAddress(addressId: number, street: string, number: string, 
 		throw CannotUpdatingAddress();
 	}
 
-	const result = await addressRepository.update(addressId, street, number, neighborhood, cep, city, state, addressDetail, peopleId);
-
-	return result;
+	return await addressRepository.update(addressId, street, number, neighborhood, cep, city, state, addressDetail, peopleId);
 }
 
 async function deleteAddressById(addressId: number) {
 	await getAddressById(addressId);
 
-	const result = await addressRepository.deleteAddressById(addressId);
-
-	return result;
+	return await addressRepository.deleteAddressById(addressId);
 }
 
 export default { createAddress, getAddresses, getAddressById, updateAddress, deleteAddressById };
