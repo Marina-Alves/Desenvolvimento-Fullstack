@@ -1,79 +1,36 @@
 import { Request, Response } from "express";
 import peopleService from "../services/peopleService";
 import httpStatus from "http-status";
+import { withErrorHandling } from "../utils/errorHandler";
 
-async function createPeople(req: Request, res: Response) {
+const createPeople = withErrorHandling(async (req: Request, res: Response) => {
 	const { name, cpfCnpj, dtNascimento, email, pessoaJuridica, phones, addresses } = req.body;
-	try {
-		const result = 	await peopleService.createPeople({ name, cpfCnpj, dtNascimento, email, pessoaJuridica, phones, addresses });
-		return res.status(httpStatus.CREATED).send(result);
-	} catch (error) {
-		if (error.name === 'CannotCreatingPeople') {
-			return res.status(httpStatus.CONFLICT).send(error.message);
-		}
-		return res.sendStatus(httpStatus.BAD_REQUEST);
-	}
-}
+	const result = await peopleService.createPeople({ name, cpfCnpj, dtNascimento, email, pessoaJuridica, phones, addresses });
+	return res.status(httpStatus.CREATED).send(result);
+});
 
-async function listPeople(req: Request, res: Response) {
-	try {
-		const result = await peopleService.getPeoples();
-		return res.status(httpStatus.OK).send(result);
-	} catch (error) {
-		return res.sendStatus(httpStatus.BAD_REQUEST);
-	}
-}
+const listPeople = withErrorHandling(async (req: Request, res: Response) => {
+	const result = await peopleService.getPeoples();
+	return res.status(httpStatus.OK).send(result);
+});
 
-async function listPeopleById(req: Request, res: Response) {
-	try {
-		const { peopleId } = req.params;
-		const result = await peopleService.getPeopleById(Number(peopleId));
-		return res.status(httpStatus.OK).send(result);
-	} catch (error) {
-		if (error.name === 'NotFoundError') {
-			return res.status(httpStatus.NOT_FOUND).send(error.message);
-		}
-		return res.sendStatus(httpStatus.BAD_REQUEST);
-	}
-}
+const listPeopleById = withErrorHandling(async (req: Request, res: Response) => {
+	const { peopleId } = req.params;
+	const result = await peopleService.getPeopleById(Number(peopleId));
+	return res.status(httpStatus.OK).send(result);
+});
 
-async function changePeopleById(req: Request, res: Response) {
-	try {
-		const { peopleId } = req.params;
-		const { name, cpfCnpj, dtNascimento, email, pessoaJuridica, ativo, phones, addresses } = req.body;
-		
-		const result = await peopleService.updatePeople(Number(peopleId), { name, cpfCnpj, dtNascimento, email, pessoaJuridica, ativo, phones, addresses });
-		return res.status(httpStatus.OK).send(result);
-	} catch (error) {
-		if (error.name === 'NotFoundError') {
-			return res.status(httpStatus.NOT_FOUND).send(error.message);
-		}
-		if (error.name === 'CannotUpdatingPeople') {
-			return res.status(httpStatus.CONFLICT).send(error.message);
-		}
-		if (error.name === 'CannotUpdatingWithoutPhoneId') {
-			return res.status(httpStatus.NOT_FOUND).send(error.message);
-		}
-		if (error.name === 'CannotUpdatingWithoutAddressId') {
-			return res.status(httpStatus.NOT_FOUND).send(error.message);
-		}
-		return res.sendStatus(httpStatus.BAD_REQUEST);
-	}
-}
+const changePeopleById = withErrorHandling(async (req: Request, res: Response) => {
+	const { peopleId } = req.params;
+	const { name, cpfCnpj, dtNascimento, email, pessoaJuridica, ativo, phones, addresses } = req.body;
+	const result = await peopleService.updatePeople(Number(peopleId), { name, cpfCnpj, dtNascimento, email, pessoaJuridica, ativo, phones, addresses });
+	return res.status(httpStatus.OK).send(result);
+});
 
-async function deletePeopleById(req: Request, res: Response) {
-	try {
-		const { peopleId } = req.params;
-
-		await peopleService.deletePeopleById(Number(peopleId));
-
-		return res.sendStatus(httpStatus.NO_CONTENT);
-	} catch (error) {
-		if (error.name === 'NotFoundError') {
-			return res.status(httpStatus.NOT_FOUND).send(error.message);
-		}
-		return res.sendStatus(httpStatus.BAD_REQUEST);
-	}
-}
+const deletePeopleById = withErrorHandling(async (req: Request, res: Response) => {
+	const { peopleId } = req.params;
+	await peopleService.deletePeopleById(Number(peopleId));
+	return res.sendStatus(httpStatus.NO_CONTENT);
+});
 
 export default { createPeople, listPeople, listPeopleById, changePeopleById, deletePeopleById };

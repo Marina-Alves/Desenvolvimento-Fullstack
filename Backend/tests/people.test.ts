@@ -98,6 +98,20 @@ describe("PUT /people/:id", () => {
 		);
 	});
 
+	it("envia telefones e endereços como upsert com os mesmos campos em update e create", async () => {
+		mockPrisma.people.findFirst.mockResolvedValue(pessoa);
+		mockPrisma.people.update.mockResolvedValue(pessoa);
+		const phone = { id: 9, numero: "62999999999", tipo_telefone: "celular" };
+		const address = { id: 2, street: "Rua A", number: "10", neighborhood: "Centro", cep: "74000000", city: "Goiânia", state: "GO", addressDetail: "Casa" };
+		const res = await request(app).put("/people/1").send({ ...body, ativo: true, phones: [phone], addresses: [address] });
+		expect(res.status).toBe(200);
+		const { data } = mockPrisma.people.update.mock.calls[0][0];
+		const { id: phoneId, ...phoneFields } = phone;
+		const { id: addressId, ...addressFields } = address;
+		expect(data.Phone.upsert).toEqual([{ where: { id: phoneId }, update: phoneFields, create: phoneFields }]);
+		expect(data.Address.upsert).toEqual([{ where: { id: addressId }, update: addressFields, create: addressFields }]);
+	});
+
 	it("retorna 404 quando a pessoa não existe", async () => {
 		mockPrisma.people.findFirst.mockResolvedValue(null);
 		const res = await request(app).put("/people/99").send({ ...body, ativo: true });

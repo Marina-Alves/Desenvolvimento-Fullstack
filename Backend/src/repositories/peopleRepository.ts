@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Address, Phone, Prisma } from "@prisma/client";
 import prisma from "../config/database";
 import { PeopleInput, PeopleUpdateInput } from "../utils/protocols";
 
@@ -66,6 +66,24 @@ function getPeopleByCpfCnpj(cpfCnpj: string) {
 	});
 }
 
+function phoneUpsert(phone: Phone) {
+	const fields = { numero: phone.numero, tipo_telefone: phone.tipo_telefone };
+	return { where: { id: phone.id }, update: fields, create: fields };
+}
+
+function addressUpsert(address: Address) {
+	const fields = {
+		street: address.street,
+		number: address.number,
+		neighborhood: address.neighborhood,
+		cep: address.cep,
+		city: address.city,
+		state: address.state,
+		addressDetail: address.addressDetail,
+	};
+	return { where: { id: address.id }, update: fields, create: fields };
+}
+
 function updatePeople(peopleId: number, { name, cpfCnpj, dtNascimento, email, pessoaJuridica, ativo, phones, addresses }: PeopleUpdateInput) {
 	const data: Prisma.PeopleUpdateInput = {
 		nome: name,
@@ -80,49 +98,11 @@ function updatePeople(peopleId: number, { name, cpfCnpj, dtNascimento, email, pe
 	}
 
 	if (phones) {
-		data.Phone = {
-			upsert: phones.map(phone => ({
-			where: {
-				id: phone.id
-			},
-			update: {
-				numero: phone.numero,
-				tipo_telefone: phone.tipo_telefone,
-			},
-			create: {
-				numero: phone.numero,
-				tipo_telefone: phone.tipo_telefone,
-			},
-			})),
-		};
+		data.Phone = { upsert: phones.map(phoneUpsert) };
 	}
 
 	if (addresses) {
-		data.Address = {
-			upsert: addresses.map(address => ({
-			where: { 
-				id: address.id
-			},
-			update: {
-				street: address.street,
-				number: address.number,
-				neighborhood: address.neighborhood,
-				cep: address.cep,
-				city: address.city,
-				state: address.state,
-				addressDetail: address.addressDetail,
-			},
-			create: {
-				street: address.street,
-				number: address.number,
-				neighborhood: address.neighborhood,
-				cep: address.cep,
-				city: address.city,
-				state: address.state,
-				addressDetail: address.addressDetail,
-			},
-			})),
-		};
+		data.Address = { upsert: addresses.map(addressUpsert) };
 	}
 
 	return prisma.people.update({
