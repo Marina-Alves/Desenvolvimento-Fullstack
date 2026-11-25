@@ -75,6 +75,14 @@ describe("addresses", () => {
 		expect(mockPrisma.address.update).toHaveBeenCalledWith({ where: { id: 1 }, data: { ...endereco, city: "Anápolis" } });
 	});
 
+	it("PUT /address/:id com endereço já existente retorna 404 (comportamento atual preservado)", async () => {
+		mockPrisma.people.findFirst.mockResolvedValue({ id: 1 });
+		mockPrisma.address.findFirst.mockResolvedValue({ id: 1, ...endereco });
+		const res = await request(app).put("/address/1").send(endereco);
+		expect(res.status).toBe(404);
+		expect(mockPrisma.address.update).not.toHaveBeenCalled();
+	});
+
 	it("GET /address/:id retorna 404 quando não existe", async () => {
 		mockPrisma.address.findFirst.mockResolvedValue(null);
 		const res = await request(app).get("/address/99");
